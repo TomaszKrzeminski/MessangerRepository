@@ -106,3 +106,6 @@ c:\users\tomek\documents\visual studio 2017\Projects\MessengerApplication\Messen
 c:\users\tomek\documents\visual studio 2017\Projects\MessengerApplication\MessengerApplication.WebUI\obj\Debug\MessengerApplication.WebUI.csprojResolveAssemblyReference.cache
 c:\users\tomek\documents\visual studio 2017\Projects\MessengerApplication\MessengerApplication.WebUI\obj\Debug\MessengerApplication.WebUI.dll
 c:\users\tomek\documents\visual studio 2017\Projects\MessengerApplication\MessengerApplication.WebUI\obj\Debug\MessengerApplication.WebUI.pdb
+C:\Users\tomek\documents\visual studio 2017\Projects\MessengerApplication\MessengerApplication.WebUI\obj\Debug\MessengerApplication.WebUI.Migrations.InitialCreate.resources
+C:\Users\tomek\documents\visual studio 2017\Projects\MessengerApplication\MessengerApplication.WebUI\obj\Debug\MessengerApplication.WebUI.csproj.GenerateResource.Cache
+C:\Users\tomek\documents\visual studio 2017\Projects\MessengerApplication\MessengerApplication.WebUI\obj\Debug\MessengerApplication.WebUI.Migrations.Message.resources
