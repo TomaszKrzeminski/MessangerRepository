@@ -227,10 +227,19 @@
     <Compile Include="Migrations\201811202210566_Message.Designer.cs">
       <DependentUpon>201811202210566_Message.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812202048333_User.cs" />
+    <Compile Include="Migrations\201812202048333_User.Designer.cs">
+      <DependentUpon>201812202048333_User.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812202055256_User2.cs" />
+    <Compile Include="Migrations\201812202055256_User2.Designer.cs">
+      <DependentUpon>201812202055256_User2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MessengerHub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -293,6 +302,12 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Home\Messanger.cshtml" />
+    <Content Include="Views\Home\SearchForUsers.cshtml" />
+    <Content Include="Views\Home\Settings.cshtml" />
+    <Content Include="Views\Home\ReciverStats.cshtml" />
+    <Content Include="Views\Home\GetReceivers.cshtml" />
+    <Content Include="Views\Home\GetMessages.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -318,6 +333,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811202210566_Message.resx">
       <DependentUpon>201811202210566_Message.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812202048333_User.resx">
+      <DependentUpon>201812202048333_User.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812202055256_User2.resx">
+      <DependentUpon>201812202055256_User2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

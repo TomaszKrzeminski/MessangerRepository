@@ -1,0 +1,8 @@
+﻿@model List<string>
+
+@foreach (var item in @Model)
+{
+   
+    <div>@Html.Label(@item, new {style="maxlength=6" })</div>
+    
+}

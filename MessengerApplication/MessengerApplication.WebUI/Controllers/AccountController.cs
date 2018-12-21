@@ -149,9 +149,17 @@ namespace MessengerApplication.WebUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+
+
+            
+
+
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+
+
+
+        var user = new ApplicationUser { UserName = model.Email, Email = model.Email,FirstName = model.FirstName, Surname = model.Surname, Age = model.Age, City = model.City, Zip = model.Zip, Country = model.Country };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
