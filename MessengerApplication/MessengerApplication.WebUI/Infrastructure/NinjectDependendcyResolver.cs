@@ -1,4 +1,6 @@
-﻿using Ninject;
+﻿using MessengerApplication.WebUI.Abstract;
+using MessengerApplication.WebUI.Concrete;
+using Ninject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +22,7 @@ namespace MessengerApplication.WebUI.Infrastructure
 
         private void AddBindings()
         {
-           
+            kernel.Bind<IUserStatsRepository>().To<EFUserStatsRepository>();
         }
 
         public object GetService(Type serviceType)

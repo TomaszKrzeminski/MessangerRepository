@@ -29,3 +29,34 @@ c:\users\tomek\documents\visual studio 2017\Projects\MessengerApplication\Messen
 c:\users\tomek\documents\visual studio 2017\Projects\MessengerApplication\MessengerApplication.UnitTests\obj\Debug\MessengerApplication.UnitTests.csprojResolveAssemblyReference.cache
 c:\users\tomek\documents\visual studio 2017\Projects\MessengerApplication\MessengerApplication.UnitTests\obj\Debug\MessengerApplication.UnitTests.dll
 c:\users\tomek\documents\visual studio 2017\Projects\MessengerApplication\MessengerApplication.UnitTests\obj\Debug\MessengerApplication.UnitTests.pdb
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.UnitTests\bin\Debug\MessengerApplication.UnitTests.dll.config
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.UnitTests\bin\Debug\MessengerApplication.UnitTests.dll
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.UnitTests\bin\Debug\MessengerApplication.UnitTests.pdb
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.UnitTests\bin\Debug\Microsoft.Web.Infrastructure.dll
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.UnitTests\bin\Debug\Moq.dll
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.UnitTests\bin\Debug\Ninject.dll
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.UnitTests\bin\Debug\Ninject.Web.Common.dll
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.UnitTests\bin\Debug\Ninject.Web.Mvc.dll
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.UnitTests\bin\Debug\System.Web.Helpers.dll
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.UnitTests\bin\Debug\System.Web.Mvc.dll
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.UnitTests\bin\Debug\System.Web.Razor.dll
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.UnitTests\bin\Debug\System.Web.WebPages.Deployment.dll
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.UnitTests\bin\Debug\System.Web.WebPages.dll
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.UnitTests\bin\Debug\System.Web.WebPages.Razor.dll
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.UnitTests\bin\Debug\WebActivator.dll
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.UnitTests\bin\Debug\Moq.xml
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.UnitTests\bin\Debug\Ninject.pdb
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.UnitTests\bin\Debug\Ninject.xml
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.UnitTests\bin\Debug\Ninject.Web.Common.pdb
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.UnitTests\bin\Debug\Ninject.Web.Common.xml
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.UnitTests\bin\Debug\Ninject.Web.Mvc.pdb
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.UnitTests\bin\Debug\Ninject.Web.Mvc.xml
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.UnitTests\bin\Debug\System.Web.Helpers.xml
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.UnitTests\bin\Debug\System.Web.Mvc.xml
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.UnitTests\bin\Debug\System.Web.Razor.xml
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.UnitTests\bin\Debug\System.Web.WebPages.xml
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.UnitTests\bin\Debug\System.Web.WebPages.Deployment.xml
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.UnitTests\bin\Debug\System.Web.WebPages.Razor.xml
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.UnitTests\obj\Debug\MessengerApplication.UnitTests.csprojResolveAssemblyReference.cache
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.UnitTests\obj\Debug\MessengerApplication.UnitTests.dll
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.UnitTests\obj\Debug\MessengerApplication.UnitTests.pdb

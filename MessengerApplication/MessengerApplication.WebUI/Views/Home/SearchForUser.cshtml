@@ -1,0 +1,52 @@
+﻿@model List<MessengerApplication.WebUI.Models.ApplicationUser>
+@{
+    ViewBag.Title = "SearchForUser";
+}
+
+<h2>Find a User</h2>
+
+
+
+@using (Html.BeginForm("SearchForUser","Home"))
+{
+
+    <div>
+        @Html.Label("FirstName")
+        @Html.TextBox("FirstName")
+    </div>
+
+
+    <div>
+        @Html.Label("Surname")
+        @Html.TextBox("Surname")
+    </div>
+
+
+
+    <div>
+        @Html.Label("City")
+        @Html.TextBox("City")
+    </div>
+
+    <div>
+        @Html.Label("Age")
+        @Html.TextBox("Age")
+    </div>
+
+
+    <input type="submit" value="Search" class="btn btn-danger" />
+
+}
+
+@if (Model != null)
+{
+
+    foreach (var item in Model)
+    {
+        <div>
+            @Html.Label(item.FirstName + " " + item.Surname)
+        </div>
+    }
+
+}
+

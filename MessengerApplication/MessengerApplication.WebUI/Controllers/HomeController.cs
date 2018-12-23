@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MessengerApplication.WebUI.Abstract;
+using MessengerApplication.WebUI.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,11 +10,52 @@ namespace MessengerApplication.WebUI.Controllers
 {
     public class HomeController : Controller
     {
-       
+        private IUserStatsRepository repository;
+
+        public HomeController(IUserStatsRepository userRepository)
+        {
+            repository = userRepository;
+        }
+
+        [HttpGet]
+        public ActionResult SearchForUser()
+        {
+            List<ApplicationUser> list = repository.GetUsers(20);
+
+           
+            return View(list);
+        }
 
 
 
-           public ActionResult GetMessages()
+        [HttpPost]
+        public ActionResult SearchForUser(int HowMany=20,string FirstName="",string Surname = "", string City = "", int Age =0)
+        {
+
+            List<Models.ApplicationUser> UserList;
+
+            UserList = repository.GetUsers(HowMany, FirstName, Surname, City, Age);
+
+
+            if(UserList==null)
+            {
+                return View(new List<Models.ApplicationUser>());
+            }
+            else
+            {
+               return View(UserList);
+            }
+
+            
+        }
+
+
+
+
+
+
+
+        public ActionResult GetMessages()
         {
             List<string> MessageList = new List<string>();
 
