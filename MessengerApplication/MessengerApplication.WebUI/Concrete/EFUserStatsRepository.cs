@@ -8,6 +8,24 @@ using System.Web;
 
 namespace MessengerApplication.WebUI.Concrete
 {
+
+    class ReceiverComparer : IEqualityComparer<ReceiverDataViewModel>
+    {
+        public bool Equals(ReceiverDataViewModel x, ReceiverDataViewModel y)
+        {
+            // Two items are equal if their keys are equal.
+            return x.Id == y.Id;
+        }
+
+        public int GetHashCode(ReceiverDataViewModel obj)
+        {
+            return obj.Id.GetHashCode();
+        }
+    }
+
+
+
+
     public class EFUserStatsRepository : IUserStatsRepository
     {
         List<ApplicationUser> listofUsers = new List<ApplicationUser>();
@@ -51,6 +69,35 @@ namespace MessengerApplication.WebUI.Concrete
 
 
 
+
+        public List<Message> GetMessages(string SenderId,string UserId)
+        {
+            List<Message> list;
+
+            try
+            {
+
+                list = context.Users.Where(x => x.Id == UserId).First().Messages.Where(y => (y.ReceiverName == SenderId) || (y.SenderName == SenderId)).OrderBy(z => z.MessageData).ToList();
+
+            }
+            catch
+            {
+
+                list = null;
+
+            }
+
+
+            return list;
+
+
+        }
+
+
+
+
+
+
         public List<ReceiverDataViewModel> GetReceiverData(string UserId)
         {
 
@@ -72,8 +119,8 @@ namespace MessengerApplication.WebUI.Concrete
 
                 foreach (var item in list)
                 {
-
-                    ReceiverDataViewModel receiver = new ReceiverDataViewModel() { Id = item.SenderName , IsRead = item.IsRead, FullName = item.SenderName  };//get Name by context
+                    ApplicationUser user = context.Users.Find(item.SenderName);
+                    ReceiverDataViewModel receiver = new ReceiverDataViewModel() { Id = item.SenderName , IsRead = item.IsRead, FullName = user.FirstName+ " "+user.Surname  };//get Name by context
 
                     listReceivers.Add(receiver);
 
@@ -85,8 +132,7 @@ namespace MessengerApplication.WebUI.Concrete
             }
 
 
-            return listReceivers;
-
+            return listReceivers.Distinct(new ReceiverComparer()).ToList();
 
 
         }

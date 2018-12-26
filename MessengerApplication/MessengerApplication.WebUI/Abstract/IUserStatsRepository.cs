@@ -1,4 +1,5 @@
-﻿using MessengerApplication.WebUI.Models;
+﻿using MessengerApplication.WebUI.Entities;
+using MessengerApplication.WebUI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,8 @@ namespace MessengerApplication.WebUI.Abstract
         List<ReceiverDataViewModel> GetReceiverData(string UserId);
 
         bool AddEmptyMessage(string Sender, string Receiver);
+
+        List<Message> GetMessages(string SenderId,string UserId);
 
     }
 }
