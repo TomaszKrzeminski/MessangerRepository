@@ -12,7 +12,10 @@
 
     <div>
         @Html.Label("FirstName")
-        @Html.TextBox("FirstName")
+       
+
+        <input type="text" id="FirstName" name="FirstName"/>
+
     </div>
 
 
@@ -45,8 +48,41 @@
     {
         <div>
             @Html.Label(item.FirstName + " " + item.Surname)
+            @Html.ActionLink(item.FirstName+ " " + item.Surname, "AddPersonToConversation", new {id=item.Id , @class="btn btn-primary" })
         </div>
     }
 
 }
 
+
+
+
+
+
+
+@section Scripts
+{
+    
+    <script>
+        $(document).ready(function () {
+    $('#FirstName').autocomplete({
+        source: '@Url.Action("Autocomplete")'
+    });
+})
+
+
+</script>
+    
+    
+    }
+    
+   
+    
+    
+    
+    
+    
+    
+    
+    
+  

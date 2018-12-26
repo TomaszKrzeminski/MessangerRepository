@@ -1,5 +1,6 @@
 ﻿using MessengerApplication.WebUI.Abstract;
 using MessengerApplication.WebUI.Models;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,32 @@ namespace MessengerApplication.WebUI.Controllers
         {
             repository = userRepository;
         }
+
+        
+        public ActionResult Autocomplete(string term)
+        {
+            List<string> FirstName = repository.AutocompleteName(term).Select(x => x.FirstName).ToList();
+
+
+            return Json(FirstName, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+
+
+
+
+
+
+        public ActionResult ViewToDelete()
+        {
+            return View(new List<ApplicationUser>());
+        }
+
+
+
+
 
         [HttpGet]
         public ActionResult SearchForUser()
@@ -74,17 +101,26 @@ namespace MessengerApplication.WebUI.Controllers
 
         public ActionResult GetReceivers()
         {
-            List<string> ReceiversList = new List<string>();
-            
-
-            for (int i = 0; i < 10; i++)
-            {
-              ReceiversList.Add("Tomasz Krzemiński");
-            }
 
 
-            return PartialView(ReceiversList);
+            List<ReceiverDataViewModel> list = repository.GetReceiverData(User.Identity.GetUserId());
+
+
+
+
+            return PartialView(list);
         }
+
+
+
+        public ActionResult AddPersonToConversation(string Id)
+        {
+
+        bool succes=  repository.AddEmptyMessage( Id, User.Identity.GetUserId());
+                
+            return RedirectToAction("Messanger"); 
+        }
+
 
 
         public ActionResult Messanger()

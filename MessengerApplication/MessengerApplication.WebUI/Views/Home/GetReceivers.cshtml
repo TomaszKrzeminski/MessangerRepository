@@ -1,8 +1,13 @@
-﻿@model List<string>
+﻿@using MessengerApplication.WebUI.Models
+
+@model List<ReceiverDataViewModel>
+           
+
+
 
 @foreach (var item in @Model)
 {
    
-    <div>@Html.Label(@item, new {style="maxlength=6" })</div>
+   <div> @Html.ActionLink(item.FullName,"NewMessage",new { id = item.Id }) </div>
     
 }

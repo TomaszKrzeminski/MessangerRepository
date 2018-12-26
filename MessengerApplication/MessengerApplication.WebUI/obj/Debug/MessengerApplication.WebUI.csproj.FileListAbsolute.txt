@@ -228,3 +228,5 @@ C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.W
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\obj\Debug\MessengerApplication.WebUI.pdb
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\obj\Debug\MessengerApplication.WebUI.Migrations.User.resources
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\obj\Debug\MessengerApplication.WebUI.Migrations.User2.resources
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\obj\Debug\MessengerApplication.WebUI.Migrations._3.resources
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\obj\Debug\MessengerApplication.WebUI.Migrations.Second.resources

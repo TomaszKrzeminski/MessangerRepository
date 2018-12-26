@@ -19,7 +19,7 @@ namespace MessengerApplication.WebUI.Models
         public string Country { get; set; }
 
 
-        public virtual ICollection<Message> Message { get; set; }
+        public virtual ICollection<Message> Messages { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
