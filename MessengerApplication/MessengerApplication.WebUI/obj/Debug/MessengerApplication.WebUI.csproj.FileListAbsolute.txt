@@ -229,3 +229,5 @@ C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.W
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\obj\Debug\MessengerApplication.WebUI.csproj.GenerateResource.Cache
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\obj\Debug\MessengerApplication.WebUI.dll
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\obj\Debug\MessengerApplication.WebUI.pdb
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\obj\Debug\MessengerApplication.WebUI.Migrations.ChangeinModel.resources
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\obj\Debug\MessengerApplication.WebUI.csprojResolveAssemblyReference.cache

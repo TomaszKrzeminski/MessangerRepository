@@ -36,28 +36,79 @@ namespace MessengerApplication.WebUI.Concrete
 
         public bool AddEmptyMessage(string Sender, string Receiver)
         {
-            //try
-            //{
-             ApplicationUser sender= context.Users.Find(Sender);
+            try
+            {
+                ApplicationUser sender= context.Users.Find(Sender);
             ApplicationUser receiver = context.Users.Find(Receiver);
-            Message newMessage = new Message() { IsRead = false, MessageData = " Say Hello :)", ReceiverName = Receiver, SendTime =DateTime.Now, SenderName = Sender };
+            Message newMessage = new Message() { IsRead = false, MessageData = " Say Hello :)", ReceiverName = receiver.FirstName+" "+receiver.Surname, SendTime =DateTime.Now, SenderName = sender.FirstName + " " + sender.Surname,ReceiverId=Receiver ,SenderId= Sender };
             context.Messages.Add(newMessage);
             sender.Messages.Add(newMessage);
             receiver.Messages.Add(newMessage);
             context.SaveChanges();
 
                 return true;
-          //  }
-          //catch
-          //  {
-          //      return false;
-          //  }
+            }
+            catch
+            {
+                return false;
+            }
 
 
 
 
 
         }
+
+
+
+
+
+
+        public bool AddMessage(string ReceiverId, string SenderId,Message message)
+        {
+
+            if(ReceiverId==SenderId)
+            {
+
+            
+            }
+            else
+            {
+
+
+
+            }
+
+
+            try
+            {
+                ApplicationUser sender = context.Users.Find(SenderId);
+                ApplicationUser receiver = context.Users.Find(ReceiverId);
+                Message newMessage = new Message() { IsRead = false, MessageData = message.MessageData, ReceiverName = receiver.FirstName + " " + receiver.Surname, SendTime = DateTime.Now, SenderName = sender.FirstName + " " + sender.Surname, ReceiverId = ReceiverId, SenderId = SenderId };
+                context.Messages.Add(newMessage);
+                sender.Messages.Add(newMessage);
+                receiver.Messages.Add(newMessage);
+                context.SaveChanges();
+
+                return true;
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
+
+
+
+
+
+        }
+
+
+
+
+
+
+
 
         public List<ApplicationUser> AutocompleteName(string name)
         {
@@ -77,8 +128,10 @@ namespace MessengerApplication.WebUI.Concrete
             try
             {
 
-                list = context.Users.Where(x => x.Id == UserId).First().Messages.Where(y => (y.ReceiverName == SenderId) || (y.SenderName == SenderId)).OrderBy(z => z.MessageData).ToList();
-
+                //list = context.Users.Where(x => x.Id == UserId).First().Messages.Where(y => (y.ReceiverId == SenderId) || (y.SenderId == SenderId)).OrderBy(z => z.MessageData).ToList();
+                list = context.Users.Where(x => x.Id == UserId).First().Messages.Where(y => (y.ReceiverId == SenderId) || (y.SenderId == SenderId)).OrderBy(x => x.SendTime)
+        .ThenBy(x => x.SendTime.Date)
+        .ThenBy(x => x.SendTime.Year).ToList();
             }
             catch
             {
@@ -119,8 +172,8 @@ namespace MessengerApplication.WebUI.Concrete
 
                 foreach (var item in list)
                 {
-                    ApplicationUser user = context.Users.Find(item.SenderName);
-                    ReceiverDataViewModel receiver = new ReceiverDataViewModel() { Id = item.SenderName , IsRead = item.IsRead, FullName = user.FirstName+ " "+user.Surname  };//get Name by context
+                    ApplicationUser user = context.Users.Find(item.SenderId);
+                    ReceiverDataViewModel receiver = new ReceiverDataViewModel() { Id = item.SenderId , IsRead = item.IsRead, FullName = user.FirstName+ " "+user.Surname  };//get Name by context
 
                     listReceivers.Add(receiver);
 
@@ -162,7 +215,21 @@ namespace MessengerApplication.WebUI.Concrete
 
         }
 
+        public string GetUserNameById(string Id)
+        {
 
+            try
+            {
+                ApplicationUser user = context.Users.Find(Id);
+                string FullName = user.FirstName + " " + user.Surname;
+                return FullName;
+            }
+            catch
+            {
+                return " ";
+            }
+
+        }
 
         public List<ApplicationUser> GetUsers(int HowMany = 10, string FirstName = "", string Surname = "", string City = "", int Age = 0)
         {

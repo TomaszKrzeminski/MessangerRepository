@@ -59,3 +59,4 @@ C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.U
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.UnitTests\bin\Debug\System.Web.WebPages.Razor.xml
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.UnitTests\obj\Debug\MessengerApplication.UnitTests.dll
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.UnitTests\obj\Debug\MessengerApplication.UnitTests.pdb
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.UnitTests\obj\Debug\MessengerApplication.UnitTests.csprojResolveAssemblyReference.cache

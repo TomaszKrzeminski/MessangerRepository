@@ -19,7 +19,86 @@ namespace MessengerApplication.WebUI.Controllers
             repository = userRepository;
         }
 
-        
+
+
+        //Old version
+
+        //public ActionResult SendMessage(Message message)
+        //{
+
+        //   if(message.MessageData.Count()>0)
+        //    {
+
+        //      if(repository.AddMessage(message.ReceiverId, User.Identity.GetUserId(),message))
+        //        {
+        //            return RedirectToAction("Messanger");
+        //        }
+        //        else
+        //        {
+        //            return View("Error");
+        //        }
+
+
+              
+
+        //    }
+        //   else
+        //    {
+        //        return View("Error");
+        //    }
+
+
+
+            
+        //}
+
+            // changed return View
+        public ActionResult SendMessage(Message message)
+        {
+
+            if (message.MessageData.Count() > 0)
+            {
+
+                if (repository.AddMessage(message.ReceiverId, User.Identity.GetUserId(), message))
+                {
+                    ViewBag.ReceiverName = repository.GetUserNameById(message.ReceiverId);
+                    ViewBag.ReceiverId = message.ReceiverId;
+
+                    List<Message> list = repository.GetMessages(message.ReceiverId, User.Identity.GetUserId());
+
+                    if (list == null)
+                    {
+                        return PartialView("GetMessages",new List<Message>());
+                    }
+                    else
+                    {
+                        return PartialView("GetMessages", list);
+
+                    }
+                }
+                else
+                {
+                    return View("Error");
+                }
+
+
+
+
+            }
+            else
+            {
+                return View("Error");
+            }
+
+
+
+
+        }
+
+
+
+
+
         public ActionResult Autocomplete(string term)
         {
             List<string> FirstName = repository.AutocompleteName(term).Select(x => x.FirstName).ToList();
@@ -94,6 +173,9 @@ namespace MessengerApplication.WebUI.Controllers
             }
             else
             {
+
+                ViewBag.ReceiverName = repository.GetUserNameById(Id);
+                ViewBag.ReceiverId = Id;
 
                 List<Message> list = repository.GetMessages(Id, User.Identity.GetUserId());
 

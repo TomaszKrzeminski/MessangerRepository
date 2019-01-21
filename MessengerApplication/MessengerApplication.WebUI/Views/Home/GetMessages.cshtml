@@ -2,20 +2,56 @@
 @model  List<Message>
 
 
-@if (Model.Count > 0)
-{
 
-    foreach (var item in Model)
+<div id="MessagesSend">
+
+    @if (Model.Count > 0)
     {
-        <div>
-            <h6>@item.SenderName </h6>
-            <p>@item.MessageData</p>
+
+        foreach (var item in Model)
+        {
+            <div>
+                <h6>@item.SenderName </h6>
+                <p>@item.MessageData</p>
 
 
-        </div>
+            </div>
+
+        }
+
+
+        using (Html.BeginForm("SendMessage", "Home"))
+        {
+
+            <div>
+                @Html.Label("Send To") <h6>@ViewBag.ReceiverName</h6>
+            </div>
+            <div >
+             
+                <input id="ReceiverIdDiv" type="hidden" name="ReceiverId" value=@ViewBag.ReceiverId>
+
+            </div>
+            <div >
+                @*@Html.TextArea("MessageData")*@
+
+                <textarea name="MessageData" rows="10" cols="30" id="MessageDataDiv"    ></textarea>
+
+
+            </div>
+
+            <input type="submit" value="Send" class="btn btn-danger" />
+
+
+        }
+
+  
 
     }
 
-}
 
 
+    
+
+
+
+</div> 

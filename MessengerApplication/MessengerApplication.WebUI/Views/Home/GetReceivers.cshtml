@@ -5,9 +5,32 @@
 
 
 
-@foreach (var item in @Model)
-{
-   
-   <div> @Html.ActionLink(item.FullName,"NewMessage",new { id = item.Id }) </div>
+
+<div id="ReceiverData">
+
+    @foreach (var item in @Model)
+    {
+
     
-}
+
+        using (Html.BeginForm("GetMessages", "Home"))
+        {
+
+          
+            <div>
+               <input type="hidden"  class="ButtonWithId"   name="Id" value=@item.Id>
+            </div>
+           
+            <input type="submit" value=@item.FullName class="btn btn-danger buttonGetMessage" />
+
+
+        }
+
+
+
+
+
+    }
+
+   
+</div>

@@ -26,6 +26,7 @@
         <div class="col-sm-6 col-xs-6 text-center">
            
             <a href="@Url.Action("Settings", "Home")">
+                <h1>@DateTime.Now</h1>
                 <span class="glyphicon glyphicon-cog black  " ></span>
             </a>
 
@@ -52,7 +53,7 @@
         <div class="row2 col-lg-3 col-md-3 col-sm-2" style="background-color:yellow">
           @Html.Action("GetReceivers","Home")
         </div>
-        <div class="row3 col-lg-9 col-md-9 col-sm-10" style="background-color:black">
+        <div id="GetMessagesDiv" class="row3 col-lg-9 col-md-9 col-sm-10" >
         @Html.Action("GetMessages","Home")
         </div>
     </div>
@@ -60,3 +61,89 @@
     
 
 </div>
+
+
+
+
+@section Scripts
+{
+
+
+
+<script type="text/javascript">
+       $(document).ready(function () {
+
+           $('#ReceiverData form').submit(function () {
+
+            $.ajax({
+                url: '@Url.Action("GetMessages", "Home")',
+
+
+                data: {
+                    Id: $('.ButtonWithId').val(),
+
+                },
+                success: function (data) {
+                  
+                   
+                    $('#GetMessagesDiv').html(data);
+                },
+                error: function (data) {
+                    alert('Get Messages Error'); 
+                }
+            });
+          return false;
+        });
+    });
+</script>
+
+
+
+
+
+
+
+<script type="text/javascript">
+       $(document).ready(function () {
+
+          
+          
+           $('#GetMessagesDiv').on('submit', 'form', function () {
+
+             
+                 
+                   
+               var messageData = {
+                   MessageData: $('#MessageDataDiv').val(), ReceiverId: $('#ReceiverIdDiv').val()
+               };
+           
+               console.log('messageData: ', messageData);
+
+                $.ajax({
+                url: '@Url.Action("SendMessage", "Home")',
+
+
+                data: messageData,
+                success: function (data) {
+                  
+                    $('#GetMessagesDiv').html(data);
+                   
+                },
+                error: function (data) {
+                    alert( 'Error  SendMessage');
+                }
+            });
+          return false;
+
+
+
+
+
+
+
+           });
+    });
+</script>
+  
+
+}
