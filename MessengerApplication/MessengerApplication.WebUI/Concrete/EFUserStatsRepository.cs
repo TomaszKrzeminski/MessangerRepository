@@ -110,9 +110,11 @@ namespace MessengerApplication.WebUI.Concrete
 
 
 
-        public List<ApplicationUser> AutocompleteName(string name)
+        public List<ApplicationUser> AutocompleteName(string Id,string name)
         {
+           
             List<ApplicationUser> list = context.Users.Where(x => x.FirstName.ToLower().StartsWith(name.ToLower())).ToList();
+            list = list.Except(list.Where(x => x.Id == Id)).ToList();
             return list;
         }
 
@@ -170,6 +172,9 @@ namespace MessengerApplication.WebUI.Concrete
             if (list!=null)
             {
 
+                list = list.Except(list.Where(x=>x.SenderId==UserId)).ToList();
+
+
                 foreach (var item in list)
                 {
                     ApplicationUser user = context.Users.Find(item.SenderId);
@@ -193,6 +198,48 @@ namespace MessengerApplication.WebUI.Concrete
 
 
 
+       // Old Wersion
+
+      //public List<ReceiverDataViewModel> GetReceiverData(string UserId)
+      //  {
+
+      //      List<Message> list;
+
+      //      try
+      //      {
+      //          list = context.Users.Where(x => x.Id == UserId).First().Messages.OrderBy(y => y.SendTime).ToList();
+      //      }
+      //      catch
+      //      {
+      //          list = null;
+      //      }
+
+      //      List<ReceiverDataViewModel> listReceivers = new List<ReceiverDataViewModel>();
+
+      //      if (list != null)
+      //      {
+
+      //          foreach (var item in list)
+      //          {
+      //              ApplicationUser user = context.Users.Find(item.SenderId);
+      //              ReceiverDataViewModel receiver = new ReceiverDataViewModel() { Id = item.SenderId, IsRead = item.IsRead, FullName = user.FirstName + " " + user.Surname };//get Name by context
+
+      //              listReceivers.Add(receiver);
+
+
+      //          }
+
+
+
+      //      }
+
+
+      //      return listReceivers.Distinct(new ReceiverComparer()).ToList();
+
+
+      //  }
+
+       
 
 
         public List<ApplicationUser> GetUserFromDB(Func<ApplicationUser, bool> func)
@@ -231,7 +278,7 @@ namespace MessengerApplication.WebUI.Concrete
 
         }
 
-        public List<ApplicationUser> GetUsers(int HowMany = 10, string FirstName = "", string Surname = "", string City = "", int Age = 0)
+        public List<ApplicationUser> GetUsers(string Id,int HowMany = 10, string FirstName = "", string Surname = "", string City = "", int Age = 0)
         {
 
             bool AddToList = false;
@@ -280,18 +327,23 @@ namespace MessengerApplication.WebUI.Concrete
 
 
             }
-
-  return listofUsers;
+            listofUsers = listofUsers.Except(listofUsers.Where(x => x.Id == Id)).ToList();
+            return listofUsers;
 
         }
 
 
 
 
-        public List<ApplicationUser> GetUsers(int HowMany = 20)
+        public List<ApplicationUser> GetUsers(string Id, int HowMany = 20)
         {
+            ApplicationUser user = context.Users.Where(u => u.Id == Id).First();
             List<ApplicationUser> list = context.Users.Take(HowMany).ToList();
-            return list;
+
+            list = list.Except(list.Where(x => x.Id == user.Id)).ToList();
+
+
+                  return list;
         }
 
         

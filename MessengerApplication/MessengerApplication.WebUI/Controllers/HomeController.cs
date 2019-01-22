@@ -101,7 +101,8 @@ namespace MessengerApplication.WebUI.Controllers
 
         public ActionResult Autocomplete(string term)
         {
-            List<string> FirstName = repository.AutocompleteName(term).Select(x => x.FirstName).ToList();
+            string Id = User.Identity.GetUserId();
+            List<string> FirstName = repository.AutocompleteName(Id,term).Select(x => x.FirstName).ToList();
 
 
             return Json(FirstName, JsonRequestBehavior.AllowGet);
@@ -127,7 +128,7 @@ namespace MessengerApplication.WebUI.Controllers
         [HttpGet]
         public ActionResult SearchForUser()
         {
-            List<ApplicationUser> list = repository.GetUsers(20);
+            List<ApplicationUser> list = repository.GetUsers(User.Identity.GetUserId(),20);
 
            
             return View(list);
@@ -141,7 +142,7 @@ namespace MessengerApplication.WebUI.Controllers
 
             List<Models.ApplicationUser> UserList;
 
-            UserList = repository.GetUsers(HowMany, FirstName, Surname, City, Age);
+            UserList = repository.GetUsers(User.Identity.GetUserId(), HowMany, FirstName, Surname, City, Age);
 
 
             if(UserList==null)
