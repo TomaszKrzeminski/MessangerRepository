@@ -2,6 +2,12 @@
 @model  List<Message>
 
 
+@if (Model != null)
+{
+    <input id="ReceiverIdxxx" type="hidden" name="ReceiverId" value=@ViewBag.ReceiverId>
+}
+
+
 
 <div id="MessagesSend">
 

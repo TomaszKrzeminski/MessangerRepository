@@ -20,8 +20,27 @@
             <div>
                <input type="hidden"  class="ButtonWithId"   name="Id" value=@item.Id>
             </div>
+
            
-            <input type="submit" value=@item.FullName class="btn btn-danger buttonGetMessage" />
+
+
+            if (item.IsRead == true)
+            {
+
+                <input type="submit" value=@item.FullName class="btn btn-success buttonGetMessage" />
+
+
+            }
+            else
+            {
+
+
+                <input type="submit" value=@item.FullName class="btn btn-danger buttonGetMessage" />
+
+
+            }
+
+
 
 
         }

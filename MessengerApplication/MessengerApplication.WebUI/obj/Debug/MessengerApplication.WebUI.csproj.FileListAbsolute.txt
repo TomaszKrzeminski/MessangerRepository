@@ -109,15 +109,6 @@ c:\users\tomek\documents\visual studio 2017\Projects\MessengerApplication\Messen
 C:\Users\tomek\documents\visual studio 2017\Projects\MessengerApplication\MessengerApplication.WebUI\obj\Debug\MessengerApplication.WebUI.Migrations.InitialCreate.resources
 C:\Users\tomek\documents\visual studio 2017\Projects\MessengerApplication\MessengerApplication.WebUI\obj\Debug\MessengerApplication.WebUI.csproj.GenerateResource.Cache
 C:\Users\tomek\documents\visual studio 2017\Projects\MessengerApplication\MessengerApplication.WebUI\obj\Debug\MessengerApplication.WebUI.Migrations.Message.resources
-C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
-C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\bin\roslyn\Microsoft.CodeAnalysis.dll
-C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
-C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
-C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\bin\roslyn\System.Collections.Immutable.dll
-C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\bin\roslyn\System.IO.FileSystem.dll
-C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\bin\roslyn\System.IO.FileSystem.Primitives.dll
-C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\bin\roslyn\System.Reflection.Metadata.dll
-C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\bin\roslyn\VBCSCompiler.exe
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\bin\ApplicationInsights.config
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\bin\roslyn\csc.exe
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\bin\roslyn\csc.exe.config
@@ -125,16 +116,25 @@ C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.W
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\bin\roslyn\csi.exe
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\bin\roslyn\csi.rsp
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\bin\roslyn\Microsoft.CodeAnalysis.dll
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\bin\roslyn\Microsoft.VisualBasic.Core.targets
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\bin\roslyn\System.AppContext.dll
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\bin\roslyn\System.Collections.Immutable.dll
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\bin\roslyn\System.IO.FileSystem.dll
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\bin\roslyn\System.Reflection.Metadata.dll
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\bin\roslyn\vbc.exe
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\bin\roslyn\vbc.exe.config
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\bin\roslyn\vbc.rsp
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\bin\roslyn\VBCSCompiler.exe
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\bin\roslyn\VBCSCompiler.exe.config
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\bin\MessengerApplication.WebUI.dll.config
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\bin\MessengerApplication.WebUI.dll
@@ -220,14 +220,14 @@ C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.W
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\bin\Microsoft.AI.ServerTelemetryChannel.xml
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\bin\Microsoft.AI.WindowsServer.xml
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\bin\Microsoft.AI.Web.xml
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\obj\Debug\MessengerApplication.WebUI.csprojResolveAssemblyReference.cache
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\obj\Debug\MessengerApplication.WebUI.Migrations.InitialCreate.resources
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\obj\Debug\MessengerApplication.WebUI.Migrations.Message.resources
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\obj\Debug\MessengerApplication.WebUI.Migrations.User.resources
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\obj\Debug\MessengerApplication.WebUI.Migrations.User2.resources
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\obj\Debug\MessengerApplication.WebUI.Migrations._3.resources
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\obj\Debug\MessengerApplication.WebUI.Migrations.Second.resources
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\obj\Debug\MessengerApplication.WebUI.Migrations.ChangeinModel.resources
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\obj\Debug\MessengerApplication.WebUI.csproj.GenerateResource.Cache
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\obj\Debug\MessengerApplication.WebUI.dll
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\obj\Debug\MessengerApplication.WebUI.pdb
-C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\obj\Debug\MessengerApplication.WebUI.Migrations.ChangeinModel.resources
-C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\obj\Debug\MessengerApplication.WebUI.csprojResolveAssemblyReference.cache

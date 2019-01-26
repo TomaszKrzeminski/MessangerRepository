@@ -220,6 +220,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\MessageHub.cs" />
     <Compile Include="Infrastructure\NinjectDependendcyResolver.cs" />
     <Compile Include="Migrations\201811200834477_InitialCreate.cs" />
     <Compile Include="Migrations\201811200834477_InitialCreate.Designer.cs">
@@ -370,6 +371,7 @@
     <Content Include="Views\Home\SearchForUser.cshtml" />
     <Content Include="Views\Home\ViewToDelete.cshtml" />
     <Content Include="Views\Home\Error.cshtml" />
+    <Content Include="Views\Home\Test.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

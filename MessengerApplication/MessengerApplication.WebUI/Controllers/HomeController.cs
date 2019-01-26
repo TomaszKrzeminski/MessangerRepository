@@ -1,5 +1,6 @@
 ﻿using MessengerApplication.WebUI.Abstract;
 using MessengerApplication.WebUI.Entities;
+using MessengerApplication.WebUI.Infrastructure;
 using MessengerApplication.WebUI.Models;
 using Microsoft.AspNet.Identity;
 using System;
@@ -61,6 +62,17 @@ namespace MessengerApplication.WebUI.Controllers
 
                 if (repository.AddMessage(message.ReceiverId, User.Identity.GetUserId(), message))
                 {
+                    // SignalR
+
+
+                    MessageHub.NotifyClient(repository.GetUserNameForSignalR(message.ReceiverId));
+
+                    ReceiverHub.RefreshReceivers(repository.GetUserNameForSignalR(message.ReceiverId),User.Identity.GetUserId());
+
+
+                    ////
+
+
                     ViewBag.ReceiverName = repository.GetUserNameById(message.ReceiverId);
                     ViewBag.ReceiverId = message.ReceiverId;
 
@@ -179,6 +191,7 @@ namespace MessengerApplication.WebUI.Controllers
                 ViewBag.ReceiverId = Id;
 
                 List<Message> list = repository.GetMessages(Id, User.Identity.GetUserId());
+                repository.ChangeMessagesToRead(User.Identity.GetUserId(),Id);
 
                 if(list==null)
                 {
@@ -254,23 +267,19 @@ namespace MessengerApplication.WebUI.Controllers
             return PartialView();
         }
 
-        //public ActionResult Index()
-        //{
-        //    return View();
-        //}
+        
 
-        //public ActionResult About()
-        //{
-        //    ViewBag.Message = "Your application description page.";
+        public ActionResult Test()
+        {
 
-        //    return View();
-        //}
+            return View();
+        }
 
-        //public ActionResult Contact()
-        //{
-        //    ViewBag.Message = "Your contact page.";
 
-        //    return View();
-        //}
+
+
+
+
+
     }
 }

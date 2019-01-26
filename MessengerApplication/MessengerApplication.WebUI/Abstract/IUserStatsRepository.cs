@@ -10,6 +10,9 @@ namespace MessengerApplication.WebUI.Abstract
 {
     public interface IUserStatsRepository
     {
+
+        string GetUserNameForSignalR(string Id);
+
         string GetUserNameById(string Id);
         List<Models.ApplicationUser> GetUsers(string Id,int HowMany = 10, string FirstName = "", string Surname = "", string City = "", int Age = 0);
 
@@ -24,6 +27,8 @@ namespace MessengerApplication.WebUI.Abstract
         List<Message> GetMessages(string SenderId,string UserId);
 
         bool AddMessage(string ReceiverId, string SenderId, Message message);
+
+        bool ChangeMessagesToRead(string UserId,string SenderId);
 
     }
 }

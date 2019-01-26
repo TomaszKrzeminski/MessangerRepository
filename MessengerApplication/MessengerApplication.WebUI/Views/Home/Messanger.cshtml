@@ -50,7 +50,7 @@
         </div>
     </div>
     <div class="row" >
-        <div class="row2 col-lg-3 col-md-3 col-sm-2" style="background-color:yellow">
+        <div id="GetReceiversDiv" class="row2 col-lg-3 col-md-3 col-sm-2" style="background-color:yellow">
           @Html.Action("GetReceivers","Home")
         </div>
         <div id="GetMessagesDiv" class="row3 col-lg-9 col-md-9 col-sm-10" >
@@ -68,6 +68,8 @@
 @section Scripts
 {
 
+<script src="~/Scripts/jquery.signalR-2.4.0.min.js"></script>
+<script src="/signalr/hubs"></script>
 
 
 <script type="text/javascript">
@@ -145,5 +147,316 @@
     });
 </script>
   
+
+
+
+@*\\\\SignalR\\\\\\\\*@
+
+
+
+<script type="text/javascript">
+
+
+       var notificationHub = $.connection.messageHub;
+
+
+       $.connection.hub.start();
+
+
+       $.connection.hub.start().done(function () {
+          
+       });
+
+
+       notificationHub.client.notify = function () {
+
+          
+
+       };
+
+
+
+
+
+
+
+
+
+      </script>
+
+
+@*<script type="text/javascript">
+
+
+       var refreshHub = $.connection.receiverHub;
+
+
+       $.connection.hub.start();
+
+
+       $.connection.hub.start().done(function () {
+
+       });
+
+
+       refreshHub.client.refreshPage = function (SenderId) {
+
+           alert(SenderId);
+
+           var SenderActive = $('#ReceiverIdDiv').val;
+
+
+           if (SenderActive == SenderId) {
+
+
+               alert('Ten sam Id');
+
+                $(document).ready(function () {
+
+
+
+
+                   $.ajax({
+                       url: '@Url.Action("GetMessages", "Home")',
+
+
+                       data: {
+                           Id: $('.ButtonWithId').val(),
+
+                       },
+                       success: function (data) {
+
+                           alert('Odświerzam  okno otwarte');
+                           $('#GetMessagesDiv').html(data);
+                       },
+                       error: function (data) {
+                           alert('Get Messages Error');
+                       }
+                   });
+
+
+
+
+
+
+               });
+
+
+
+
+
+           }
+           else {
+
+               $(document).ready(function () {
+
+
+                   $.ajax({
+                       url: '@Url.Action("GetReceivers", "Home")',
+
+
+
+                       success: function (data) {
+
+                           alert('Odświerzam  okno zamkniete');
+                           $('#GetReceiversDiv').html(data);
+                       },
+                       error: function (data) {
+                           alert('Get Messages Error');
+                       }
+                   });
+
+               });
+
+
+
+
+
+
+
+
+
+
+
+
+
+           }
+
+
+
+
+
+
+
+</script>*@
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+
+       var refreshHub = $.connection.receiverHub;
+
+
+
+
+
+       $.connection.hub.start().done(function () {
+
+       });
+
+
+       refreshHub.client.refreshPage = function (SenderId) {
+
+           var SenderActive = $('#GetMessagesDiv  #ReceiverIdxxx').val();
+          
+
+
+
+
+           if (SenderId == SenderActive)
+           {
+              ///
+
+
+ $(document).ready(function () {
+
+
+
+
+                   $.ajax({
+                       url: '@Url.Action("GetMessages", "Home")',
+
+
+                       data: {
+                           Id: $('.ButtonWithId').val(),
+
+                       },
+                       success: function (data) {
+
+                          
+                           $('#GetMessagesDiv').html(data);
+                       },
+                       error: function (data) {
+                           alert('Get Messages Error');
+                       }
+                   });
+
+
+
+
+
+
+               });
+
+
+
+
+///
+              
+           }
+           else
+           {
+
+
+
+
+
+
+
+
+
+
+
+
+
+               alert('Different Id');
+           }
+
+
+       };
+
+
+
+
+</script>
+
+
+
+
+
+@*<script type="text/javascript">
+
+
+       var refreshHub = $.connection.receiverHub;
+
+
+
+
+
+       $.connection.hub.start().done(function () {
+
+       });
+
+
+       refreshHub.client.refreshPage = function (SenderId) {
+
+           var SenderActive = $('#GetMessagesDiv  #ReceiverIdxxx').val();
+           alert('Id is' + SenderActive);
+
+           if (SenderActive != null) {
+
+
+           }
+           else {
+               SenderActive = 'None';
+           }
+
+
+
+
+           if (SenderId == SenderActive) {
+               alert('Same Id');
+           }
+           else if (SenderActive == 'None') {
+               alert('None Id');
+           }
+           else {
+               alert('Different Id');
+           }
+
+
+       };
+
+
+
+
+</script>*@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

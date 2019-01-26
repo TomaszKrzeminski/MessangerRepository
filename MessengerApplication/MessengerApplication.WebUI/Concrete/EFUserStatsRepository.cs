@@ -38,13 +38,13 @@ namespace MessengerApplication.WebUI.Concrete
         {
             try
             {
-                ApplicationUser sender= context.Users.Find(Sender);
-            ApplicationUser receiver = context.Users.Find(Receiver);
-            Message newMessage = new Message() { IsRead = false, MessageData = " Say Hello :)", ReceiverName = receiver.FirstName+" "+receiver.Surname, SendTime =DateTime.Now, SenderName = sender.FirstName + " " + sender.Surname,ReceiverId=Receiver ,SenderId= Sender };
-            context.Messages.Add(newMessage);
-            sender.Messages.Add(newMessage);
-            receiver.Messages.Add(newMessage);
-            context.SaveChanges();
+                ApplicationUser sender = context.Users.Find(Sender);
+                ApplicationUser receiver = context.Users.Find(Receiver);
+                Message newMessage = new Message() { IsRead = false, MessageData = " Say Hello :)", ReceiverName = receiver.FirstName + " " + receiver.Surname, SendTime = DateTime.Now, SenderName = sender.FirstName + " " + sender.Surname, ReceiverId = Receiver, SenderId = Sender };
+                context.Messages.Add(newMessage);
+                sender.Messages.Add(newMessage);
+                receiver.Messages.Add(newMessage);
+                context.SaveChanges();
 
                 return true;
             }
@@ -64,13 +64,13 @@ namespace MessengerApplication.WebUI.Concrete
 
 
 
-        public bool AddMessage(string ReceiverId, string SenderId,Message message)
+        public bool AddMessage(string ReceiverId, string SenderId, Message message)
         {
 
-            if(ReceiverId==SenderId)
+            if (ReceiverId == SenderId)
             {
 
-            
+
             }
             else
             {
@@ -92,7 +92,7 @@ namespace MessengerApplication.WebUI.Concrete
 
                 return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return false;
             }
@@ -110,9 +110,9 @@ namespace MessengerApplication.WebUI.Concrete
 
 
 
-        public List<ApplicationUser> AutocompleteName(string Id,string name)
+        public List<ApplicationUser> AutocompleteName(string Id, string name)
         {
-           
+
             List<ApplicationUser> list = context.Users.Where(x => x.FirstName.ToLower().StartsWith(name.ToLower())).ToList();
             list = list.Except(list.Where(x => x.Id == Id)).ToList();
             return list;
@@ -121,9 +121,68 @@ namespace MessengerApplication.WebUI.Concrete
 
 
 
+        public bool ChangeMessagesToRead(string UserId,string SenderId)
+        {
 
 
-        public List<Message> GetMessages(string SenderId,string UserId)
+            List<Message> messages = new List<Message>();
+
+
+            try
+            {
+
+                messages = context.Users.Where(x => x.Id == UserId).First().Messages.Where(y => (y.ReceiverId == UserId&&y.SenderId==SenderId&&y.IsRead==false) ).OrderBy(x => x.SendTime)
+       .ThenBy(x => x.SendTime.Date)
+       .ThenBy(x => x.SendTime.Year).ToList();
+
+
+                foreach (var item in messages)
+                {
+                    try
+                    {
+                    Message message = context.Messages.Find(item.MessageId);
+                    message.IsRead = true;
+                    context.SaveChanges();
+                    }
+                   catch
+                    {
+                        return false;
+                    }
+
+                    
+
+
+                }
+
+
+
+
+
+
+                return true;
+
+            }
+           catch
+            {
+
+
+
+                return false;
+            }
+
+
+
+            
+
+
+        }
+
+
+
+
+
+
+        public List<Message> GetMessages(string SenderId, string UserId)
         {
             List<Message> list;
 
@@ -160,25 +219,25 @@ namespace MessengerApplication.WebUI.Concrete
 
             try
             {
-           list= context.Users.Where(x => x.Id == UserId).First().Messages.OrderBy(y => y.SendTime).ToList();
+                list = context.Users.Where(x => x.Id == UserId).First().Messages.OrderBy(y => y.SendTime).ToList();
             }
             catch
             {
                 list = null;
             }
-            
+
             List<ReceiverDataViewModel> listReceivers = new List<ReceiverDataViewModel>();
 
-            if (list!=null)
+            if (list != null)
             {
 
-                list = list.Except(list.Where(x=>x.SenderId==UserId)).ToList();
+                list = list.Except(list.Where(x => x.SenderId == UserId)).ToList();
 
 
                 foreach (var item in list)
                 {
                     ApplicationUser user = context.Users.Find(item.SenderId);
-                    ReceiverDataViewModel receiver = new ReceiverDataViewModel() { Id = item.SenderId , IsRead = item.IsRead, FullName = user.FirstName+ " "+user.Surname  };//get Name by context
+                    ReceiverDataViewModel receiver = new ReceiverDataViewModel() { Id = item.SenderId, IsRead = item.IsRead, FullName = user.FirstName + " " + user.Surname };//get Name by context
 
                     listReceivers.Add(receiver);
 
@@ -198,57 +257,57 @@ namespace MessengerApplication.WebUI.Concrete
 
 
 
-       // Old Wersion
+        // Old Wersion
 
-      //public List<ReceiverDataViewModel> GetReceiverData(string UserId)
-      //  {
+        //public List<ReceiverDataViewModel> GetReceiverData(string UserId)
+        //  {
 
-      //      List<Message> list;
+        //      List<Message> list;
 
-      //      try
-      //      {
-      //          list = context.Users.Where(x => x.Id == UserId).First().Messages.OrderBy(y => y.SendTime).ToList();
-      //      }
-      //      catch
-      //      {
-      //          list = null;
-      //      }
+        //      try
+        //      {
+        //          list = context.Users.Where(x => x.Id == UserId).First().Messages.OrderBy(y => y.SendTime).ToList();
+        //      }
+        //      catch
+        //      {
+        //          list = null;
+        //      }
 
-      //      List<ReceiverDataViewModel> listReceivers = new List<ReceiverDataViewModel>();
+        //      List<ReceiverDataViewModel> listReceivers = new List<ReceiverDataViewModel>();
 
-      //      if (list != null)
-      //      {
+        //      if (list != null)
+        //      {
 
-      //          foreach (var item in list)
-      //          {
-      //              ApplicationUser user = context.Users.Find(item.SenderId);
-      //              ReceiverDataViewModel receiver = new ReceiverDataViewModel() { Id = item.SenderId, IsRead = item.IsRead, FullName = user.FirstName + " " + user.Surname };//get Name by context
+        //          foreach (var item in list)
+        //          {
+        //              ApplicationUser user = context.Users.Find(item.SenderId);
+        //              ReceiverDataViewModel receiver = new ReceiverDataViewModel() { Id = item.SenderId, IsRead = item.IsRead, FullName = user.FirstName + " " + user.Surname };//get Name by context
 
-      //              listReceivers.Add(receiver);
-
-
-      //          }
+        //              listReceivers.Add(receiver);
 
 
-
-      //      }
-
-
-      //      return listReceivers.Distinct(new ReceiverComparer()).ToList();
+        //          }
 
 
-      //  }
 
-       
+        //      }
+
+
+        //      return listReceivers.Distinct(new ReceiverComparer()).ToList();
+
+
+        //  }
+
+
 
 
         public List<ApplicationUser> GetUserFromDB(Func<ApplicationUser, bool> func)
         {
 
             List<ApplicationUser> userlist = context.Users.Where(func).AsEnumerable<ApplicationUser>().ToList();
-            
+
             return userlist;
-         
+
 
         }
 
@@ -278,30 +337,57 @@ namespace MessengerApplication.WebUI.Concrete
 
         }
 
-        public List<ApplicationUser> GetUsers(string Id,int HowMany = 10, string FirstName = "", string Surname = "", string City = "", int Age = 0)
+        public string GetUserNameForSignalR(string Id)
+        {
+
+
+
+            try
+            {
+                ApplicationUser user = context.Users.Find(Id);
+
+                return user.UserName;
+
+            }
+            catch
+            {
+                return " ";
+            }
+
+
+
+
+
+
+
+
+
+        }
+
+        public List<ApplicationUser> GetUsers(string Id, int HowMany = 10, string FirstName = "", string Surname = "", string City = "", int Age = 0)
         {
 
             bool AddToList = false;
 
             listofUsers = context.Users.ToList();
-            listofUsers= listofUsers.Take(HowMany).ToList();
+            listofUsers = listofUsers.Take(HowMany).ToList();
 
             List<Func<ApplicationUser, bool>> listfunc = new List<Func<ApplicationUser, bool>>();
-            if(FirstName!="")
+            if (FirstName != "")
             {
-              listfunc.Add((x) => x.FirstName == FirstName);
+                listfunc.Add((x) => x.FirstName == FirstName);
             }
-            
-            if(Surname!="")
+
+            if (Surname != "")
             {
-              listfunc.Add((x) => x.Surname == Surname);
+                listfunc.Add((x) => x.Surname == Surname);
             }
-            
-            if(City!="")
+
+            if (City != "")
             {
-               listfunc.Add((x) => x.City == City);
+                listfunc.Add((x) => x.City == City);
             }
-           
+
 
             if (Age > 0)
             {
@@ -311,19 +397,19 @@ namespace MessengerApplication.WebUI.Concrete
 
             foreach (var item in listfunc)
             {
-                if(AddToList)
+                if (AddToList)
                 {
-                listofUsers=GetUserFromList(item);
+                    listofUsers = GetUserFromList(item);
                 }
                 else
                 {
                     listofUsers = GetUserFromDB(item);
                     AddToList = true;
-                    if(listofUsers==null)
+                    if (listofUsers == null)
                     {
                         return new List<ApplicationUser>();
                     }
-                }                        
+                }
 
 
             }
@@ -343,10 +429,10 @@ namespace MessengerApplication.WebUI.Concrete
             list = list.Except(list.Where(x => x.Id == user.Id)).ToList();
 
 
-                  return list;
+            return list;
         }
 
-        
+
 
     }
 
@@ -357,10 +443,10 @@ namespace MessengerApplication.WebUI.Concrete
 
 
 
-    
 
 
 
-       
+
+
 
 }
