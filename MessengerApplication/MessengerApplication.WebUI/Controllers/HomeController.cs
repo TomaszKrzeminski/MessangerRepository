@@ -109,6 +109,44 @@ namespace MessengerApplication.WebUI.Controllers
 
 
 
+        public ActionResult UpdateReceivers(string ReceiverId)
+        {
+
+            repository.ChangeMessagesToRead(User.Identity.GetUserId(), ReceiverId);
+
+            //MessageHub.NotifyClient(repository.GetUserNameForSignalR(ReceiverId));
+
+            //        ReceiverHub.RefreshReceivers(repository.GetUserNameForSignalR(ReceiverId), User.Identity.GetUserId());
+
+
+            //        ////
+
+
+                    ViewBag.ReceiverName = repository.GetUserNameById(ReceiverId);
+                    ViewBag.ReceiverId = ReceiverId;
+
+                    //List<Message> list = repository.GetMessages(ReceiverId, User.Identity.GetUserId());
+
+                    //if (list == null)
+                    //{
+                    //    return PartialView("GetMessages", new List<Message>());
+                    //}
+                    //else
+                    //{
+                    //    return PartialView("GetMessages", list);
+
+                    //}
+               
+
+       
+          return  RedirectToAction("GetReceivers");
+
+
+
+
+        }
+
+
 
 
         public ActionResult Autocomplete(string term)

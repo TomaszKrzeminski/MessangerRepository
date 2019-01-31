@@ -220,7 +220,6 @@ C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.W
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\bin\Microsoft.AI.ServerTelemetryChannel.xml
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\bin\Microsoft.AI.WindowsServer.xml
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\bin\Microsoft.AI.Web.xml
-C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\obj\Debug\MessengerApplication.WebUI.csprojResolveAssemblyReference.cache
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\obj\Debug\MessengerApplication.WebUI.Migrations.InitialCreate.resources
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\obj\Debug\MessengerApplication.WebUI.Migrations.Message.resources
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\obj\Debug\MessengerApplication.WebUI.Migrations.User.resources
@@ -231,3 +230,4 @@ C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.W
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\obj\Debug\MessengerApplication.WebUI.csproj.GenerateResource.Cache
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\obj\Debug\MessengerApplication.WebUI.dll
 C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\obj\Debug\MessengerApplication.WebUI.pdb
+C:\MessangerRepo\MessangerRepository\MessengerApplication\MessengerApplication.WebUI\obj\Debug\MessengerApplication.WebUI.csprojResolveAssemblyReference.cache

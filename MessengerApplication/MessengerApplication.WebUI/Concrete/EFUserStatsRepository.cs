@@ -219,7 +219,7 @@ namespace MessengerApplication.WebUI.Concrete
 
             try
             {
-                list = context.Users.Where(x => x.Id == UserId).First().Messages.OrderBy(y => y.SendTime).ToList();
+                list = context.Users.Where(x => x.Id == UserId).First().Messages.OrderByDescending(y => y.SendTime).ToList();
             }
             catch
             {
@@ -248,6 +248,7 @@ namespace MessengerApplication.WebUI.Concrete
 
             }
 
+            //listReceivers.GroupBy(x=>x.)
 
             return listReceivers.Distinct(new ReceiverComparer()).ToList();
 
