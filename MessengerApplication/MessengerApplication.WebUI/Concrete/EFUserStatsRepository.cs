@@ -178,6 +178,40 @@ namespace MessengerApplication.WebUI.Concrete
         }
 
 
+        public bool CheckIfReceiverIsAdded(string NewPerson, string UserId)
+        {
+
+
+            ApplicationUser Sender = context.Users.Find(UserId);
+
+            try
+            {
+                Message message = Sender.Messages.Where(x => x.ReceiverId == NewPerson||x.SenderId==NewPerson).First();
+
+                if(message!=null)
+                {
+                    return true; 
+                }
+                else
+                {
+                    return false;
+                }
+
+
+            }
+            catch
+            {
+
+                return false;
+
+            }
+
+
+
+        }
+
+
+
 
 
 

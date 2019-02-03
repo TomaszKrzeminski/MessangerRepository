@@ -17,27 +17,31 @@
         <input type="text" id="FirstName" name="FirstName"/>
 
     </div>
-
+    <br />
+    <br />
 
     <div>
         @Html.Label("Surname")
         @Html.TextBox("Surname")
     </div>
-
+    <br />
+    <br />
 
 
     <div>
         @Html.Label("City")
         @Html.TextBox("City")
     </div>
-
+    <br />
+    <br />
     <div>
         @Html.Label("Age")
         @Html.TextBox("Age")
     </div>
 
-
-    <input type="submit" value="Search" class="btn btn-danger" />
+    <br />
+    <br />
+    <input autocomplete="on" type="submit" value="Search" class="btn btn-danger" />
 
 }
 
@@ -65,7 +69,8 @@
     
     <script>
         $(document).ready(function () {
-    $('#FirstName').autocomplete({
+            $('#FirstName').autocomplete({
+              
         source: '@Url.Action("Autocomplete")'
     });
 })

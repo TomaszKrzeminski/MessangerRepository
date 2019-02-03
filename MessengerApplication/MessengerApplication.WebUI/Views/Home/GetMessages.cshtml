@@ -29,6 +29,7 @@
         using (Html.BeginForm("SendMessage", "Home"))
         {
 
+            Html.ValidationSummary();
             <div>
                 @Html.Label("Send To") <h6>@ViewBag.ReceiverName</h6>
             </div>
@@ -38,7 +39,8 @@
 
             </div>
             <div >
-                @*@Html.TextArea("MessageData")*@
+              
+                <p>@Html.ValidationMessage("MessageData")</p>
 
                 <textarea name="MessageData" rows="10" cols="30" id="MessageDataDiv"    ></textarea>
 

@@ -40,7 +40,7 @@ namespace MessengerApplication.WebUI.Controllers
         //        }
 
 
-              
+
 
         //    }
         //   else
@@ -50,14 +50,23 @@ namespace MessengerApplication.WebUI.Controllers
 
 
 
-            
+
         //}
 
-            // changed return View
+        // changed return View
         public ActionResult SendMessage(Message message)
         {
 
-            if (message.MessageData.Count() > 0)
+            if (message.MessageData == null)
+            {
+                ModelState.AddModelError("MessageData", "Message should not be empty");
+                ViewBag.ReceiverName = repository.GetUserNameById(message.ReceiverId);
+                ViewBag.ReceiverId = message.ReceiverId;
+                List<Message> list = repository.GetMessages(message.ReceiverId, User.Identity.GetUserId());
+                return PartialView("GetMessages", list);
+
+            }
+            else
             {
 
                 if (repository.AddMessage(message.ReceiverId, User.Identity.GetUserId(), message))
@@ -67,7 +76,7 @@ namespace MessengerApplication.WebUI.Controllers
 
                     MessageHub.NotifyClient(repository.GetUserNameForSignalR(message.ReceiverId));
 
-                    ReceiverHub.RefreshReceivers(repository.GetUserNameForSignalR(message.ReceiverId),User.Identity.GetUserId());
+                    ReceiverHub.RefreshReceivers(repository.GetUserNameForSignalR(message.ReceiverId), User.Identity.GetUserId());
 
 
                     ////
@@ -80,7 +89,7 @@ namespace MessengerApplication.WebUI.Controllers
 
                     if (list == null)
                     {
-                        return PartialView("GetMessages",new List<Message>());
+                        return PartialView("GetMessages", new List<Message>());
                     }
                     else
                     {
@@ -97,10 +106,7 @@ namespace MessengerApplication.WebUI.Controllers
 
 
             }
-            else
-            {
-                return View("Error");
-            }
+
 
 
 
@@ -122,24 +128,24 @@ namespace MessengerApplication.WebUI.Controllers
             //        ////
 
 
-                    ViewBag.ReceiverName = repository.GetUserNameById(ReceiverId);
-                    ViewBag.ReceiverId = ReceiverId;
+            ViewBag.ReceiverName = repository.GetUserNameById(ReceiverId);
+            ViewBag.ReceiverId = ReceiverId;
 
-                    //List<Message> list = repository.GetMessages(ReceiverId, User.Identity.GetUserId());
+            //List<Message> list = repository.GetMessages(ReceiverId, User.Identity.GetUserId());
 
-                    //if (list == null)
-                    //{
-                    //    return PartialView("GetMessages", new List<Message>());
-                    //}
-                    //else
-                    //{
-                    //    return PartialView("GetMessages", list);
+            //if (list == null)
+            //{
+            //    return PartialView("GetMessages", new List<Message>());
+            //}
+            //else
+            //{
+            //    return PartialView("GetMessages", list);
 
-                    //}
-               
+            //}
 
-       
-          return  RedirectToAction("GetReceivers");
+
+
+            return RedirectToAction("GetReceivers");
 
 
 
@@ -152,7 +158,7 @@ namespace MessengerApplication.WebUI.Controllers
         public ActionResult Autocomplete(string term)
         {
             string Id = User.Identity.GetUserId();
-            List<string> FirstName = repository.AutocompleteName(Id,term).Select(x => x.FirstName).ToList();
+            List<string> FirstName = repository.AutocompleteName(Id, term).Select(x => x.FirstName).ToList();
 
 
             return Json(FirstName, JsonRequestBehavior.AllowGet);
@@ -178,16 +184,16 @@ namespace MessengerApplication.WebUI.Controllers
         [HttpGet]
         public ActionResult SearchForUser()
         {
-            List<ApplicationUser> list = repository.GetUsers(User.Identity.GetUserId(),20);
+            List<ApplicationUser> list = repository.GetUsers(User.Identity.GetUserId(), 20);
 
-           
+
             return View(list);
         }
 
 
 
         [HttpPost]
-        public ActionResult SearchForUser(int HowMany=20,string FirstName="",string Surname = "", string City = "", int Age =0)
+        public ActionResult SearchForUser(int HowMany = 20, string FirstName = "", string Surname = "", string City = "", int Age = 0)
         {
 
             List<Models.ApplicationUser> UserList;
@@ -195,16 +201,16 @@ namespace MessengerApplication.WebUI.Controllers
             UserList = repository.GetUsers(User.Identity.GetUserId(), HowMany, FirstName, Surname, City, Age);
 
 
-            if(UserList==null)
+            if (UserList == null)
             {
                 return View(new List<Models.ApplicationUser>());
             }
             else
             {
-               return View(UserList);
+                return View(UserList);
             }
 
-            
+
         }
 
 
@@ -229,9 +235,9 @@ namespace MessengerApplication.WebUI.Controllers
                 ViewBag.ReceiverId = Id;
 
                 List<Message> list = repository.GetMessages(Id, User.Identity.GetUserId());
-                repository.ChangeMessagesToRead(User.Identity.GetUserId(),Id);
+                repository.ChangeMessagesToRead(User.Identity.GetUserId(), Id);
 
-                if(list==null)
+                if (list == null)
                 {
                     return PartialView(new List<Message>());
                 }
@@ -241,15 +247,15 @@ namespace MessengerApplication.WebUI.Controllers
 
                 }
 
-               
+
 
 
             }
 
-           
 
 
-            
+
+
         }
 
 
@@ -272,9 +278,23 @@ namespace MessengerApplication.WebUI.Controllers
         public ActionResult AddPersonToConversation(string Id)
         {
 
-        bool succes=  repository.AddEmptyMessage( Id, User.Identity.GetUserId());
-                
-            return RedirectToAction("Messanger"); 
+
+            bool AlreadyAdded = repository.CheckIfReceiverIsAdded(Id, User.Identity.GetUserId());
+
+
+            if (AlreadyAdded)
+            {
+                return View("AlreadyAdded");
+            }
+            else
+            {
+                bool succes = repository.AddEmptyMessage(Id, User.Identity.GetUserId());
+
+                return RedirectToAction("Messanger");
+            }
+
+
+
         }
 
 
@@ -298,14 +318,14 @@ namespace MessengerApplication.WebUI.Controllers
         {
             return View();
         }
-        
 
-        public ActionResult ReciverStats(int id=1)
+
+        public ActionResult ReciverStats(int id = 1)
         {
             return PartialView();
         }
 
-        
+
 
         public ActionResult Test()
         {

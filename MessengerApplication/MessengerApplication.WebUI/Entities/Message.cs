@@ -20,6 +20,7 @@ namespace MessengerApplication.WebUI.Entities
         public string ReceiverName { get; set; }
         public string SenderId { get; set; }
         public string ReceiverId { get; set; }
+        [Required]
         public string MessageData { get; set; }
 
                 public virtual ICollection<ApplicationUser> ApplicationUsers { get; set; }

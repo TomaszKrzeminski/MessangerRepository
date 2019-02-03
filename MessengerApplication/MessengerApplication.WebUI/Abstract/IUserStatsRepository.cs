@@ -30,5 +30,7 @@ namespace MessengerApplication.WebUI.Abstract
 
         bool ChangeMessagesToRead(string UserId,string SenderId);
 
+        bool CheckIfReceiverIsAdded(string NewPerson,string UserId);
+
     }
 }

@@ -250,6 +250,10 @@
     <Compile Include="Migrations\201812261646113_Change in Model.Designer.cs">
       <DependentUpon>201812261646113_Change in Model.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901311619283_Validation Model.cs" />
+    <Compile Include="Migrations\201901311619283_Validation Model.Designer.cs">
+      <DependentUpon>201901311619283_Validation Model.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -372,6 +376,7 @@
     <Content Include="Views\Home\ViewToDelete.cshtml" />
     <Content Include="Views\Home\Error.cshtml" />
     <Content Include="Views\Home\Test.cshtml" />
+    <Content Include="Views\Home\AlreadyAdded.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -409,6 +414,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812261646113_Change in Model.resx">
       <DependentUpon>201812261646113_Change in Model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901311619283_Validation Model.resx">
+      <DependentUpon>201901311619283_Validation Model.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
