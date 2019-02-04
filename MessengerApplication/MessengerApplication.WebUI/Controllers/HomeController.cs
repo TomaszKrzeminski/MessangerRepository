@@ -14,46 +14,20 @@ namespace MessengerApplication.WebUI.Controllers
     public class HomeController : Controller
     {
         private IUserStatsRepository repository;
-
+        private Func<string> GetUserId;
         public HomeController(IUserStatsRepository userRepository)
         {
             repository = userRepository;
+            GetUserId = () => User.Identity.GetUserId();
+        }
+
+        public HomeController(IUserStatsRepository userRepository,Func<string>GetUserId)
+        {
+            repository = userRepository;
+            this.GetUserId = GetUserId;
         }
 
 
-
-        //Old version
-
-        //public ActionResult SendMessage(Message message)
-        //{
-
-        //   if(message.MessageData.Count()>0)
-        //    {
-
-        //      if(repository.AddMessage(message.ReceiverId, User.Identity.GetUserId(),message))
-        //        {
-        //            return RedirectToAction("Messanger");
-        //        }
-        //        else
-        //        {
-        //            return View("Error");
-        //        }
-
-
-
-
-        //    }
-        //   else
-        //    {
-        //        return View("Error");
-        //    }
-
-
-
-
-        //}
-
-        // changed return View
         public ActionResult SendMessage(Message message)
         {
 
@@ -120,28 +94,12 @@ namespace MessengerApplication.WebUI.Controllers
 
             repository.ChangeMessagesToRead(User.Identity.GetUserId(), ReceiverId);
 
-            //MessageHub.NotifyClient(repository.GetUserNameForSignalR(ReceiverId));
 
-            //        ReceiverHub.RefreshReceivers(repository.GetUserNameForSignalR(ReceiverId), User.Identity.GetUserId());
-
-
-            //        ////
 
 
             ViewBag.ReceiverName = repository.GetUserNameById(ReceiverId);
             ViewBag.ReceiverId = ReceiverId;
 
-            //List<Message> list = repository.GetMessages(ReceiverId, User.Identity.GetUserId());
-
-            //if (list == null)
-            //{
-            //    return PartialView("GetMessages", new List<Message>());
-            //}
-            //else
-            //{
-            //    return PartialView("GetMessages", list);
-
-            //}
 
 
 
@@ -166,8 +124,7 @@ namespace MessengerApplication.WebUI.Controllers
 
 
 
-
-
+      
 
 
 
@@ -184,7 +141,7 @@ namespace MessengerApplication.WebUI.Controllers
         [HttpGet]
         public ActionResult SearchForUser()
         {
-            List<ApplicationUser> list = repository.GetUsers(User.Identity.GetUserId(), 20);
+            List<ApplicationUser> list = repository.GetUsers(GetUserId(), 20);
 
 
             return View(list);
@@ -234,8 +191,8 @@ namespace MessengerApplication.WebUI.Controllers
                 ViewBag.ReceiverName = repository.GetUserNameById(Id);
                 ViewBag.ReceiverId = Id;
 
-                List<Message> list = repository.GetMessages(Id, User.Identity.GetUserId());
-                repository.ChangeMessagesToRead(User.Identity.GetUserId(), Id);
+                List<Message> list = repository.GetMessages(Id, GetUserId());
+                repository.ChangeMessagesToRead(GetUserId(), Id);
 
                 if (list == null)
                 {
