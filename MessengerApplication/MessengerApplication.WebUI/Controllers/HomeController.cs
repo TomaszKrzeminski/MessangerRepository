@@ -36,21 +36,21 @@ namespace MessengerApplication.WebUI.Controllers
                 ModelState.AddModelError("MessageData", "Message should not be empty");
                 ViewBag.ReceiverName = repository.GetUserNameById(message.ReceiverId);
                 ViewBag.ReceiverId = message.ReceiverId;
-                List<Message> list = repository.GetMessages(message.ReceiverId, User.Identity.GetUserId());
+                List<Message> list = repository.GetMessages(message.ReceiverId, GetUserId());
                 return PartialView("GetMessages", list);
 
             }
             else
             {
 
-                if (repository.AddMessage(message.ReceiverId, User.Identity.GetUserId(), message))
+                if (repository.AddMessage(message.ReceiverId, GetUserId(), message))
                 {
                     // SignalR
 
 
-                    MessageHub.NotifyClient(repository.GetUserNameForSignalR(message.ReceiverId));
+                    //MessageHub.NotifyClient(repository.GetUserNameForSignalR(message.ReceiverId));
 
-                    ReceiverHub.RefreshReceivers(repository.GetUserNameForSignalR(message.ReceiverId), User.Identity.GetUserId());
+                    ReceiverHub.RefreshReceivers(repository.GetUserNameForSignalR(message.ReceiverId), GetUserId());
 
 
                     ////
@@ -59,7 +59,7 @@ namespace MessengerApplication.WebUI.Controllers
                     ViewBag.ReceiverName = repository.GetUserNameById(message.ReceiverId);
                     ViewBag.ReceiverId = message.ReceiverId;
 
-                    List<Message> list = repository.GetMessages(message.ReceiverId, User.Identity.GetUserId());
+                    List<Message> list = repository.GetMessages(message.ReceiverId, GetUserId());
 
                     if (list == null)
                     {
@@ -88,11 +88,11 @@ namespace MessengerApplication.WebUI.Controllers
         }
 
 
-
+        
         public ActionResult UpdateReceivers(string ReceiverId)
         {
 
-            repository.ChangeMessagesToRead(User.Identity.GetUserId(), ReceiverId);
+            repository.ChangeMessagesToRead(GetUserId(), ReceiverId);
 
 
 
@@ -111,11 +111,10 @@ namespace MessengerApplication.WebUI.Controllers
         }
 
 
-
-
+        
         public ActionResult Autocomplete(string term)
         {
-            string Id = User.Identity.GetUserId();
+            string Id = GetUserId();
             List<string> FirstName = repository.AutocompleteName(Id, term).Select(x => x.FirstName).ToList();
 
 
@@ -128,7 +127,7 @@ namespace MessengerApplication.WebUI.Controllers
 
 
 
-
+        //Not Tested
         public ActionResult ViewToDelete()
         {
             return View(new List<ApplicationUser>());
@@ -155,7 +154,7 @@ namespace MessengerApplication.WebUI.Controllers
 
             List<Models.ApplicationUser> UserList;
 
-            UserList = repository.GetUsers(User.Identity.GetUserId(), HowMany, FirstName, Surname, City, Age);
+            UserList = repository.GetUsers(GetUserId(), HowMany, FirstName, Surname, City, Age);
 
 
             if (UserList == null)
@@ -222,7 +221,7 @@ namespace MessengerApplication.WebUI.Controllers
         {
 
 
-            List<ReceiverDataViewModel> list = repository.GetReceiverData(User.Identity.GetUserId());
+            List<ReceiverDataViewModel> list = repository.GetReceiverData(GetUserId());
 
 
 
@@ -236,7 +235,7 @@ namespace MessengerApplication.WebUI.Controllers
         {
 
 
-            bool AlreadyAdded = repository.CheckIfReceiverIsAdded(Id, User.Identity.GetUserId());
+            bool AlreadyAdded = repository.CheckIfReceiverIsAdded(Id, GetUserId());
 
 
             if (AlreadyAdded)
@@ -245,9 +244,16 @@ namespace MessengerApplication.WebUI.Controllers
             }
             else
             {
-                bool succes = repository.AddEmptyMessage(Id, User.Identity.GetUserId());
-
-                return RedirectToAction("Messanger");
+                bool succes = repository.AddEmptyMessage(Id, GetUserId());
+                if(succes)
+                {
+                   return RedirectToAction("Messanger");
+                }
+                else
+                {
+                    return View("AddPersonToConversationError");
+                }
+                
             }
 
 
