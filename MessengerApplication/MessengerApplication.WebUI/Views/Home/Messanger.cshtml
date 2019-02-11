@@ -81,6 +81,93 @@
 
 
 <script type="text/javascript">
+    $(document).ready(function () {
+
+
+
+        $('#GetMessagesDiv ').on('submit', '.DeleteForm', function () {
+
+
+
+           
+
+
+
+
+
+                $.ajax({
+                    url: '@Url.Action("DeleteMessage", "Home")',
+
+
+                data: {
+
+                    MessageId:$(this).find('.DeleteMessageDiv').val(),
+                    SenderId:  $(this).find('.SenderMessageDiv').val(),
+                ReceiverId:  $(this).find('.ReceiverMessageDiv').val(),
+
+
+                },
+                success: function (data) {
+
+                    $('#GetMessagesDiv').html(data);
+
+                },
+                error: function (data) {
+                    alert('Error  DeleteMessage');
+                    alert(data);
+                }
+            });
+          return false;
+
+
+
+
+
+           
+
+
+
+
+
+
+
+
+
+
+
+
+    });
+    });
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
        $(document).ready(function () {
 
 
@@ -129,7 +216,7 @@
 
 
 
-
+   
 
 
 
@@ -139,7 +226,7 @@
 
           
           
-           $('#GetMessagesDiv').on('submit', 'form', function () {
+           $('#GetMessagesDiv').on('submit', '.SendForm', function () {
 
              
                  
@@ -342,7 +429,7 @@
 
 
 
-           $('#GetMessagesDiv').on('mouseleave', 'form', function () {
+           $('#GetMessagesDiv').on('mouseleave', '.SendForm', function () {
 
 
 

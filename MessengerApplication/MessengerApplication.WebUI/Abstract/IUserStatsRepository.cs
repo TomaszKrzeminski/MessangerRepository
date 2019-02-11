@@ -32,5 +32,7 @@ namespace MessengerApplication.WebUI.Abstract
 
         bool CheckIfReceiverIsAdded(string NewPerson,string UserId);
 
+        bool RemoveMessage(int MessageId);
+
     }
 }

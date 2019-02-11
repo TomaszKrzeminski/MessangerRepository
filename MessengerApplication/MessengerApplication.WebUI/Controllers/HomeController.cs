@@ -15,17 +15,95 @@ namespace MessengerApplication.WebUI.Controllers
     {
         private IUserStatsRepository repository;
         private Func<string> GetUserId;
+      
+        private IReceiverHub hubReceiver;
+
         public HomeController(IUserStatsRepository userRepository)
         {
             repository = userRepository;
             GetUserId = () => User.Identity.GetUserId();
+            hubReceiver = new ReceiverHub();
+            
         }
 
         public HomeController(IUserStatsRepository userRepository,Func<string>GetUserId)
         {
             repository = userRepository;
             this.GetUserId = GetUserId;
+            hubReceiver = new ReceiverHub();
         }
+
+
+        public HomeController(IReceiverHub receiverHub, IUserStatsRepository userRepository, Func<string> GetUserId)
+        {
+            repository = userRepository;
+            this.GetUserId = GetUserId;
+            hubReceiver = receiverHub;
+        }
+
+
+        public ActionResult DeleteMessage(int MessageId,string SenderId,string ReceiverId)
+        {
+
+            if(repository.RemoveMessage(MessageId))
+            {
+
+                string userId = GetUserId();
+                string Receiver;
+
+                if(SenderId==userId)
+                {
+
+                    Receiver = ReceiverId;
+
+                }
+                else 
+                {
+                    Receiver = SenderId;
+
+                }
+
+
+
+                ViewBag.ReceiverName = repository.GetUserNameById(Receiver);
+                ViewBag.ReceiverId = Receiver;
+
+                List<Message> list = repository.GetMessages(Receiver, GetUserId());
+                //repository.ChangeMessagesToRead(GetUserId(), Receiver);
+
+                if (list == null)
+                {
+                    return PartialView("GetMessages", new List<Message>());
+                }
+                else
+                {
+                    return PartialView("GetMessages", list);
+
+                }
+
+
+
+
+
+
+
+
+            }
+            else
+            {
+
+                return PartialView("RemoveError");
+            }
+
+
+
+
+           
+        }
+
+
+
+
 
 
         public ActionResult SendMessage(Message message)
@@ -50,7 +128,12 @@ namespace MessengerApplication.WebUI.Controllers
 
                     //MessageHub.NotifyClient(repository.GetUserNameForSignalR(message.ReceiverId));
 
-                    ReceiverHub.RefreshReceivers(repository.GetUserNameForSignalR(message.ReceiverId), GetUserId());
+                    hubReceiver.RefreshReceivers(repository .GetUserNameForSignalR(message.ReceiverId), GetUserId());
+
+                       
+                        
+
+                        
 
 
                     ////
@@ -94,7 +177,7 @@ namespace MessengerApplication.WebUI.Controllers
 
             repository.ChangeMessagesToRead(GetUserId(), ReceiverId);
 
-
+            string user=User.Identity.GetUserId();
 
 
             ViewBag.ReceiverName = repository.GetUserNameById(ReceiverId);
@@ -195,11 +278,11 @@ namespace MessengerApplication.WebUI.Controllers
 
                 if (list == null)
                 {
-                    return PartialView(new List<Message>());
+                    return PartialView("GetMessages", new List<Message>());
                 }
                 else
                 {
-                    return PartialView(list);
+                    return PartialView("GetMessages",list);
 
                 }
 
@@ -219,6 +302,8 @@ namespace MessengerApplication.WebUI.Controllers
 
         public ActionResult GetReceivers()
         {
+
+            string user = User.Identity.GetUserId();
 
 
             List<ReceiverDataViewModel> list = repository.GetReceiverData(GetUserId());

@@ -378,6 +378,7 @@
     <Content Include="Views\Home\Test.cshtml" />
     <Content Include="Views\Home\AlreadyAdded.cshtml" />
     <Content Include="Views\Home\AddPersonToConversationError.cshtml" />
+    <Content Include="Views\Home\RemoveError.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

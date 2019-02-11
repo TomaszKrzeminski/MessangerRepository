@@ -25,6 +25,27 @@ namespace MessengerApplication.WebUI.Concrete
 
 
 
+    class UserComparer : IEqualityComparer<string>
+    {
+        public bool Equals(string x, string y)
+        {
+            // Two items are equal if their keys are equal.
+            return x == y;
+        }
+
+       
+
+        public int GetHashCode(string obj)
+        {
+            return obj.GetHashCode();
+        }
+    }
+
+
+
+
+
+
 
     public class EFUserStatsRepository : IUserStatsRepository
     {
@@ -121,7 +142,7 @@ namespace MessengerApplication.WebUI.Concrete
 
 
 
-        public bool ChangeMessagesToRead(string UserId,string SenderId)
+        public bool ChangeMessagesToRead(string UserId, string SenderId)
         {
 
 
@@ -131,7 +152,7 @@ namespace MessengerApplication.WebUI.Concrete
             try
             {
 
-                messages = context.Users.Where(x => x.Id == UserId).First().Messages.Where(y => (y.ReceiverId == UserId&&y.SenderId==SenderId&&y.IsRead==false) ).OrderBy(x => x.SendTime)
+                messages = context.Users.Where(x => x.Id == UserId).First().Messages.Where(y => (y.ReceiverId == UserId && y.SenderId == SenderId && y.IsRead == false)).OrderBy(x => x.SendTime)
        .ThenBy(x => x.SendTime.Date)
        .ThenBy(x => x.SendTime.Year).ToList();
 
@@ -140,16 +161,16 @@ namespace MessengerApplication.WebUI.Concrete
                 {
                     try
                     {
-                    Message message = context.Messages.Find(item.MessageId);
-                    message.IsRead = true;
-                    context.SaveChanges();
+                        Message message = context.Messages.Find(item.MessageId);
+                        message.IsRead = true;
+                        context.SaveChanges();
                     }
-                   catch
+                    catch
                     {
                         return false;
                     }
 
-                    
+
 
 
                 }
@@ -162,7 +183,7 @@ namespace MessengerApplication.WebUI.Concrete
                 return true;
 
             }
-           catch
+            catch
             {
 
 
@@ -172,7 +193,7 @@ namespace MessengerApplication.WebUI.Concrete
 
 
 
-            
+
 
 
         }
@@ -186,11 +207,11 @@ namespace MessengerApplication.WebUI.Concrete
 
             try
             {
-                Message message = Sender.Messages.Where(x => x.ReceiverId == NewPerson||x.SenderId==NewPerson).First();
+                Message message = Sender.Messages.Where(x => x.ReceiverId == NewPerson || x.SenderId == NewPerson).First();
 
-                if(message!=null)
+                if (message != null)
                 {
-                    return true; 
+                    return true;
                 }
                 else
                 {
@@ -246,10 +267,61 @@ namespace MessengerApplication.WebUI.Concrete
 
 
 
+        //public List<ReceiverDataViewModel> GetReceiverData(string UserId)
+        //{
+
+        //    List<Message> list;
+
+        //    try
+        //    {
+        //        list = context.Users.Where(x => x.Id == UserId).First().Messages.OrderByDescending(y => y.SendTime).ToList();
+        //    }
+        //    catch
+        //    {
+        //        list = null;
+        //    }
+
+        //    List<ReceiverDataViewModel> listReceivers = new List<ReceiverDataViewModel>();
+
+        //    if (list != null)
+        //    {
+
+        //        list = list.Except(list.Where(x => x.SenderId == UserId)).ToList();
+
+
+        //        foreach (var item in list)
+        //        {
+        //            ApplicationUser user = context.Users.Find(item.SenderId);
+        //            ReceiverDataViewModel receiver = new ReceiverDataViewModel() { Id = item.SenderId, IsRead = item.IsRead, FullName = user.FirstName + " " + user.Surname };//get Name by context
+
+        //            listReceivers.Add(receiver);
+
+
+        //        }
+
+
+
+        //    }
+
+        //    //listReceivers.GroupBy(x=>x.)
+
+        //    return listReceivers.Distinct(new ReceiverComparer()).ToList();
+
+
+        //}
+
+
+
+
+
+
+
         public List<ReceiverDataViewModel> GetReceiverData(string UserId)
         {
 
             List<Message> list;
+            List<string> AllUsers=new List<string>();
+            List<ReceiverDataViewModel> listReceivers = new List<ReceiverDataViewModel>();
 
             try
             {
@@ -260,23 +332,78 @@ namespace MessengerApplication.WebUI.Concrete
                 list = null;
             }
 
-            List<ReceiverDataViewModel> listReceivers = new List<ReceiverDataViewModel>();
 
-            if (list != null)
+
+            if(list!=null)
             {
 
-                list = list.Except(list.Where(x => x.SenderId == UserId)).ToList();
+               
+
+                List<string> ReceiverList= list.Select(l => l.ReceiverId).ToList();
+                List<string> SenderList = list.Select(l => l.SenderId).ToList();
 
 
-                foreach (var item in list)
+               if(ReceiverList!=null)
                 {
-                    ApplicationUser user = context.Users.Find(item.SenderId);
-                    ReceiverDataViewModel receiver = new ReceiverDataViewModel() { Id = item.SenderId, IsRead = item.IsRead, FullName = user.FirstName + " " + user.Surname };//get Name by context
 
-                    listReceivers.Add(receiver);
+                    AllUsers.AddRange(ReceiverList);
+                }
 
+                if (SenderList != null)
+                {
+
+                    AllUsers.AddRange(SenderList);
+                }
+
+
+             AllUsers=AllUsers.Distinct().ToList();
+                AllUsers.Remove(UserId); 
+
+
+            }
+
+
+
+
+
+
+
+
+           
+            if (AllUsers.Count()>0&&list!=null)
+            {
+
+
+                foreach (var item in AllUsers)
+                {
+
+                    ApplicationUser user = context.Users.Find(item);
+                  
+                    bool MessageIsRead = true;
+
+                    foreach (var message in list)
+                    {
+
+
+
+                        if(message.SenderId==item&&message.IsRead==false)
+                        {
+                            MessageIsRead = false;
+                        }
+                        
+
+                        
+                    }
+
+                    listReceivers.Add(new ReceiverDataViewModel() { Id = item, IsRead = MessageIsRead, FullName = user.FirstName + " " + user.Surname });
 
                 }
+
+
+
+
+
+
 
 
 
@@ -284,10 +411,19 @@ namespace MessengerApplication.WebUI.Concrete
 
             //listReceivers.GroupBy(x=>x.)
 
-            return listReceivers.Distinct(new ReceiverComparer()).ToList();
+            return listReceivers;
 
 
         }
+
+
+
+
+
+
+
+
+
 
 
 
@@ -467,8 +603,44 @@ namespace MessengerApplication.WebUI.Concrete
             return list;
         }
 
+        public bool RemoveMessage(int MessageId)
+        {
+
+            Message messageToRemove;
+
+            try
+            {
+
+                Message message = context.Messages.Include("ApplicationUsers").Where(m => m.MessageId == MessageId).First();
+
+                context.Messages.Remove(message);
+
+                context.SaveChanges();
+
+               //Message messageR= context.Messages.Find(MessageId);
+               // context.Messages.Remove(messageR);
+               // context.SaveChanges();
 
 
+
+                //messageToRemove = context.Messages.Where(x => x.MessageId ==MessageId).First();
+
+                //context.Messages.Remove(messageToRemove);
+
+                //context.SaveChanges();
+
+                return true;
+
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
+
+
+
+
+        }
     }
 
 

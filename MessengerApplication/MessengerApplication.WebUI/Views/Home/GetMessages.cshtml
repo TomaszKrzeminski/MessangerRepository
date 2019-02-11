@@ -16,17 +16,29 @@
 
         foreach (var item in Model)
         {
-            <div>
-                <h6>@item.SenderName </h6>
-                <p>@item.MessageData</p>
-
+            <div class="panel panel-default" >
+                <h6 class="text-center text-primary">@item.SenderName </h6>
+                <header>@item.MessageData</header>
+                
+              
 
             </div>
+            <div class="DeleteMessage">
+                @using (Html.BeginForm("DeleteMessage", "Home",FormMethod.Post,new {@class="DeleteForm" }))
+                {
+                    <input class="DeleteMessageDiv" type="hidden" name="MessageId" value=@item.MessageId>
+                    <input class="SenderMessageDiv" type="hidden" name="SenderId" value=@item.SenderId>
+                    <input class="ReceiverMessageDiv" type="hidden" name="ReceiverId" value=@item.ReceiverId>
+
+                    <input type="submit" value="Delete" class="deletemessage btn btn-warning btn-sm" />
+                }
+            </div>
+            <br />
 
         }
 
 
-        using (Html.BeginForm("SendMessage", "Home"))
+        using (Html.BeginForm("SendMessage", "Home", FormMethod.Post, new { @class = "SendForm" }))
         {
 
             Html.ValidationSummary();

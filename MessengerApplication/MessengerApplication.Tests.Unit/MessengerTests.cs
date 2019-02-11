@@ -345,8 +345,12 @@ namespace MessengerApplication.Tests.Unit
         public void SendMessege_MessageDataIsntNull_ReturnsList()
         {
 
-          
+           Message message = new Message() { MessageData = "Message Text",MessageId=1 ,ReceiverId="ReceiverId"};
 
+
+            Mock<IReceiverHub> mockHub = new Mock<IReceiverHub>();
+            mockHub.Setup(m => m.RefreshReceivers(It.IsAny<string>(), It.IsAny<string>()));
+ 
 
 
             List<Message> list = new List<Message>();
@@ -361,10 +365,11 @@ namespace MessengerApplication.Tests.Unit
             mock.Setup(r => r.GetUserNameById(It.IsAny<string>())).Returns("koral2323@gmail.com");
             mock.Setup(r => r.GetMessages(It.IsAny<string>(), It.IsAny<string>())).Returns(list);
             mock.Setup(r => r.AddMessage(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<Message>())).Returns(true);
-            Message message = new Message() { MessageData = "Message Text" };
+            mock.Setup(r => r.GetUserNameForSignalR(It.IsAny<string>())).Returns("User");
+           
 
-            HomeController controller = new HomeController(mock.Object, () => "koral2323@gmail.com");
-            ViewResult result = controller.SendMessage(message) as ViewResult;
+            HomeController controller = new HomeController(mockHub.Object,mock.Object, () => "koral2323@gmail.com");
+            PartialViewResult result = controller.SendMessage(message) as PartialViewResult;
 
             Assert.AreEqual("GetMessages",result.ViewName);
 
@@ -375,6 +380,17 @@ namespace MessengerApplication.Tests.Unit
         [Test]
         public void SendMessege_MessageDataIsntNull_ReturnsError()
         {
+
+
+
+            Message message = new Message() { MessageData = "Message Text", MessageId = 1, ReceiverId = "ReceiverId" };
+
+
+            Mock<IReceiverHub> mockHub = new Mock<IReceiverHub>();
+            mockHub.Setup(m => m.RefreshReceivers(It.IsAny<string>(), It.IsAny<string>()));
+
+
+
             List<Message> list = new List<Message>();
             list.Add(new Message() { MessageData = "Data", MessageId = 1 });
             list.Add(new Message() { MessageData = "Data", MessageId = 2 });
@@ -387,12 +403,16 @@ namespace MessengerApplication.Tests.Unit
             mock.Setup(r => r.GetUserNameById(It.IsAny<string>())).Returns("koral2323@gmail.com");
             mock.Setup(r => r.GetMessages(It.IsAny<string>(), It.IsAny<string>())).Returns(list);
             mock.Setup(r => r.AddMessage(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<Message>())).Returns(false);
-            Message message = new Message() { MessageData = null };
+            mock.Setup(r => r.GetUserNameForSignalR(It.IsAny<string>())).Returns("User");
 
-            HomeController controller = new HomeController(mock.Object, () => "koral2323@gmail.com");
+
+            HomeController controller = new HomeController(mockHub.Object, mock.Object, () => "koral2323@gmail.com");
             ViewResult result = controller.SendMessage(message) as ViewResult;
 
             Assert.AreEqual("Error", result.ViewName);
+
+
+
 
         }
 

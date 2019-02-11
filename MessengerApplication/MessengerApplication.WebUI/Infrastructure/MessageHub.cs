@@ -25,10 +25,35 @@ namespace MessengerApplication.WebUI.Infrastructure
       }
 
 
-    public class ReceiverHub : Hub
+
+
+    public interface IReceiverHub
     {
 
-        public static void RefreshReceivers(string userName,string SenderId)
+         void  RefreshReceivers(string userName, string SenderId);
+
+    }
+
+
+
+    public class ReceiverHub : Hub,IReceiverHub
+    {
+
+        //public static void RefreshReceivers(string userName,string SenderId)
+        //{
+
+        //    IHubContext context = GlobalHost.ConnectionManager.GetHubContext<ReceiverHub>();
+
+        //    //context.Clients.All.notify();
+
+        //    context.Clients.User(userName).refreshPage(SenderId);
+
+
+        //}
+
+
+
+        public  void RefreshReceivers(string userName, string SenderId)
         {
 
             IHubContext context = GlobalHost.ConnectionManager.GetHubContext<ReceiverHub>();
