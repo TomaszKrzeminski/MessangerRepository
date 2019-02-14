@@ -244,7 +244,7 @@ namespace MessengerApplication.WebUI.Concrete
             try
             {
 
-                //list = context.Users.Where(x => x.Id == UserId).First().Messages.Where(y => (y.ReceiverId == SenderId) || (y.SenderId == SenderId)).OrderBy(z => z.MessageData).ToList();
+            
                 list = context.Users.Where(x => x.Id == UserId).First().Messages.Where(y => (y.ReceiverId == SenderId) || (y.SenderId == SenderId)).OrderBy(x => x.SendTime)
         .ThenBy(x => x.SendTime.Date)
         .ThenBy(x => x.SendTime.Year).ToList();
@@ -267,49 +267,7 @@ namespace MessengerApplication.WebUI.Concrete
 
 
 
-        //public List<ReceiverDataViewModel> GetReceiverData(string UserId)
-        //{
-
-        //    List<Message> list;
-
-        //    try
-        //    {
-        //        list = context.Users.Where(x => x.Id == UserId).First().Messages.OrderByDescending(y => y.SendTime).ToList();
-        //    }
-        //    catch
-        //    {
-        //        list = null;
-        //    }
-
-        //    List<ReceiverDataViewModel> listReceivers = new List<ReceiverDataViewModel>();
-
-        //    if (list != null)
-        //    {
-
-        //        list = list.Except(list.Where(x => x.SenderId == UserId)).ToList();
-
-
-        //        foreach (var item in list)
-        //        {
-        //            ApplicationUser user = context.Users.Find(item.SenderId);
-        //            ReceiverDataViewModel receiver = new ReceiverDataViewModel() { Id = item.SenderId, IsRead = item.IsRead, FullName = user.FirstName + " " + user.Surname };//get Name by context
-
-        //            listReceivers.Add(receiver);
-
-
-        //        }
-
-
-
-        //    }
-
-        //    //listReceivers.GroupBy(x=>x.)
-
-        //    return listReceivers.Distinct(new ReceiverComparer()).ToList();
-
-
-        //}
-
+      
 
 
 
@@ -409,8 +367,7 @@ namespace MessengerApplication.WebUI.Concrete
 
             }
 
-            //listReceivers.GroupBy(x=>x.)
-
+           
             return listReceivers;
 
 
@@ -418,56 +375,7 @@ namespace MessengerApplication.WebUI.Concrete
 
 
 
-
-
-
-
-
-
-
-
-
-
-        // Old Wersion
-
-        //public List<ReceiverDataViewModel> GetReceiverData(string UserId)
-        //  {
-
-        //      List<Message> list;
-
-        //      try
-        //      {
-        //          list = context.Users.Where(x => x.Id == UserId).First().Messages.OrderBy(y => y.SendTime).ToList();
-        //      }
-        //      catch
-        //      {
-        //          list = null;
-        //      }
-
-        //      List<ReceiverDataViewModel> listReceivers = new List<ReceiverDataViewModel>();
-
-        //      if (list != null)
-        //      {
-
-        //          foreach (var item in list)
-        //          {
-        //              ApplicationUser user = context.Users.Find(item.SenderId);
-        //              ReceiverDataViewModel receiver = new ReceiverDataViewModel() { Id = item.SenderId, IsRead = item.IsRead, FullName = user.FirstName + " " + user.Surname };//get Name by context
-
-        //              listReceivers.Add(receiver);
-
-
-        //          }
-
-
-
-        //      }
-
-
-        //      return listReceivers.Distinct(new ReceiverComparer()).ToList();
-
-
-        //  }
+      
 
 
 
@@ -606,7 +514,7 @@ namespace MessengerApplication.WebUI.Concrete
         public bool RemoveMessage(int MessageId)
         {
 
-            Message messageToRemove;
+            //Message messageToRemove;
 
             try
             {
@@ -617,17 +525,7 @@ namespace MessengerApplication.WebUI.Concrete
 
                 context.SaveChanges();
 
-               //Message messageR= context.Messages.Find(MessageId);
-               // context.Messages.Remove(messageR);
-               // context.SaveChanges();
-
-
-
-                //messageToRemove = context.Messages.Where(x => x.MessageId ==MessageId).First();
-
-                //context.Messages.Remove(messageToRemove);
-
-                //context.SaveChanges();
+               
 
                 return true;
 

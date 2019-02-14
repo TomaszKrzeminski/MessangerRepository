@@ -177,7 +177,7 @@ namespace MessengerApplication.WebUI.Controllers
 
             repository.ChangeMessagesToRead(GetUserId(), ReceiverId);
 
-            string user=User.Identity.GetUserId();
+           
 
 
             ViewBag.ReceiverName = repository.GetUserNameById(ReceiverId);
@@ -303,7 +303,7 @@ namespace MessengerApplication.WebUI.Controllers
         public ActionResult GetReceivers()
         {
 
-            string user = User.Identity.GetUserId();
+            
 
 
             List<ReceiverDataViewModel> list = repository.GetReceiverData(GetUserId());

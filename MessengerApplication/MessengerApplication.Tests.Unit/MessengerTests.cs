@@ -29,8 +29,7 @@ namespace MessengerApplication.Tests.Unit
         List<ApplicationUser> ApplicationUsers = new List<ApplicationUser>();
         ApplicationUsers.Add(new ApplicationUser() {Id= "2c06feb7-86ef-4c0a-aced-2bad02f4bd22", Email="ewa2323@gmail.com" });
         ApplicationUsers.Add(new ApplicationUser() { Id = "95ca1c5e-c81b-456e-a7f5-a84293b01007", Email = "janusz2323@gmail.com" });
-        //ApplicationUsers.Add(new ApplicationUser() { Id = "cba4d57a-198f-443e-8cac-af6c871736de", Email = "koral2323@gmail.com" });
-
+       
         
 
 
