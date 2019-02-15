@@ -18,7 +18,27 @@ namespace MessengerApplication.Tests.Unit
     { 
       
        
-   
+     [Test]
+     public void CheckNumberOfNewMessages_ReturnsPartialViewWithNumber()
+        {
+
+
+            Mock<IUserStatsRepository> repository = new Mock<IUserStatsRepository>();
+            repository.Setup(r => r.CheckUnreadedMessages(It.IsAny<string>())).Returns(4);
+
+
+            HomeController controller = new HomeController(repository.Object,()=>"any given id");
+
+
+            PartialViewResult result = controller.CheckNumberOfNewMessages() as PartialViewResult;
+
+
+            Assert.AreEqual(4,(int)result.Model);
+
+
+
+
+        }
 
 
 
@@ -76,6 +96,12 @@ namespace MessengerApplication.Tests.Unit
         public void GetMesseges_IdIsNotNone_ReturnsList()
         {
 
+            //
+            Mock<IMessagesHub> messagesHub = new Mock<IMessagesHub>();
+            messagesHub.Setup(m => m.UpdateMessagesNumber(It.IsAny<string>(), It.IsAny<int>()));
+            Mock<IReceiverHub> receiverHub = new Mock<IReceiverHub>();
+            //
+
             List<Message> messages = new List<Message>();
             messages.Add(new Message {MessageData="One",IsRead=true,MessageId=1 });
             messages.Add(new Message { MessageData = "Two", IsRead = true, MessageId = 2});
@@ -88,8 +114,9 @@ namespace MessengerApplication.Tests.Unit
             mock.Setup(r => r.GetMessages(It.IsAny<string>(), It.IsAny<string>())).Returns(messages);
             mock.Setup(r => r.ChangeMessagesToRead(It.IsAny<string>(), It.IsAny<string>())).Returns(true);
 
-            HomeController controller = new HomeController(mock.Object,()=> "cba4d57a-198f-443e-8cac-af6c871736de");
-          
+            //HomeController controller = new HomeController(mock.Object,()=> "cba4d57a-198f-443e-8cac-af6c871736de");
+
+            HomeController controller = new HomeController(messagesHub.Object, receiverHub.Object, mock.Object, () => "cba4d57a-198f-443e-8cac-af6c871736de");
 
 
             PartialViewResult result = controller.GetMessages("cba4d57a-198f-443e-8cac-af6c871736de") as PartialViewResult;
@@ -108,6 +135,13 @@ namespace MessengerApplication.Tests.Unit
         public void GetMesseges_ListIsNull_ReturnsEmptyList()
         {
 
+            Mock<IMessagesHub> messagesHub = new Mock<IMessagesHub>();
+            messagesHub.Setup(m => m.UpdateMessagesNumber(It.IsAny<string>(), It.IsAny<int>()));
+            Mock<IReceiverHub> receiverHub = new Mock<IReceiverHub>();
+
+
+
+
             List<Message> messages = new List<Message>();
             
             Mock<IUserStatsRepository> mock = new Mock<IUserStatsRepository>();
@@ -115,7 +149,8 @@ namespace MessengerApplication.Tests.Unit
             mock.Setup(r => r.GetMessages(It.IsAny<string>(), It.IsAny<string>())).Returns<List<Message>>(null);
             mock.Setup(r => r.ChangeMessagesToRead(It.IsAny<string>(), It.IsAny<string>())).Returns(true);
 
-            HomeController controller = new HomeController(mock.Object, () => "cba4d57a-198f-443e-8cac-af6c871736de");
+          
+            HomeController controller = new HomeController(messagesHub.Object, receiverHub.Object, mock.Object, () => "cba4d57a-198f-443e-8cac-af6c871736de");
 
 
 
@@ -287,12 +322,19 @@ namespace MessengerApplication.Tests.Unit
         public void UpdateReceivers_ChangingMessagesToSend_RedirectToAction()
         {
 
+
+            Mock<IMessagesHub> messagesHub = new Mock<IMessagesHub>();
+            messagesHub.Setup(m => m.UpdateMessagesNumber(It.IsAny<string>(), It.IsAny<int>()));
+
+            Mock<IReceiverHub> receiverHub = new Mock<IReceiverHub>();
+
+
             Mock<IUserStatsRepository> mock = new Mock<IUserStatsRepository>();
             mock.Setup(r => r.ChangeMessagesToRead(It.IsAny<string>(), It.IsAny<string>())).Returns(true);
             mock.Setup(r => r.GetUserNameById(It.IsAny<string>())).Returns("koral2323@gmail.com");
 
 
-            HomeController controller = new HomeController(mock.Object,()=>"koral2323@gmail.com");
+            HomeController controller = new HomeController(messagesHub.Object,receiverHub.Object,mock.Object,()=>"koral2323@gmail.com");
 
 
             RedirectToRouteResult result = controller.UpdateReceivers("koral2323@gmail.com") as RedirectToRouteResult;
@@ -349,8 +391,10 @@ namespace MessengerApplication.Tests.Unit
 
             Mock<IReceiverHub> mockHub = new Mock<IReceiverHub>();
             mockHub.Setup(m => m.RefreshReceivers(It.IsAny<string>(), It.IsAny<string>()));
- 
 
+            Mock<IMessagesHub> messagesHub = new Mock<IMessagesHub>();
+            messagesHub.Setup(m => m.UpdateMessagesNumber(It.IsAny<string>(), It.IsAny<int>()));
+           
 
             List<Message> list = new List<Message>();
             list.Add(new Message() { MessageData = "Data", MessageId = 1 });
@@ -367,7 +411,7 @@ namespace MessengerApplication.Tests.Unit
             mock.Setup(r => r.GetUserNameForSignalR(It.IsAny<string>())).Returns("User");
            
 
-            HomeController controller = new HomeController(mockHub.Object,mock.Object, () => "koral2323@gmail.com");
+            HomeController controller = new HomeController(messagesHub.Object, mockHub.Object,mock.Object, () => "koral2323@gmail.com");
             PartialViewResult result = controller.SendMessage(message) as PartialViewResult;
 
             Assert.AreEqual("GetMessages",result.ViewName);

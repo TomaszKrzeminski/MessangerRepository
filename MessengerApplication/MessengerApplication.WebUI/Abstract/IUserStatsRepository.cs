@@ -34,5 +34,7 @@ namespace MessengerApplication.WebUI.Abstract
 
         bool RemoveMessage(int MessageId);
 
+        int CheckUnreadedMessages(string UserId);
+
     }
 }

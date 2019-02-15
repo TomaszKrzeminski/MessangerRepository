@@ -33,7 +33,7 @@ namespace MessengerApplication.WebUI.Concrete
             return x == y;
         }
 
-       
+
 
         public int GetHashCode(string obj)
         {
@@ -231,11 +231,38 @@ namespace MessengerApplication.WebUI.Concrete
 
         }
 
+        public int CheckUnreadedMessages(string UserId)
+        {
+
+            int number = 0;
+
+            try
+            {
+
+                List<Message> list = context.Users.Where(x => x.Id == UserId).First().Messages.Where(m => m.IsRead == false).ToList();
+
+                foreach (var item in list)
+                {
+                    if (item.SenderId == UserId)
+                    {
+                        list.Remove(item);
+                    }
+                    
+                }
+
+                number = list.Count();
+                return number;
+
+            }
+            catch
+            {
+
+                return 0;
+            }
+            
 
 
-
-
-
+        }
 
         public List<Message> GetMessages(string SenderId, string UserId)
         {
@@ -244,7 +271,7 @@ namespace MessengerApplication.WebUI.Concrete
             try
             {
 
-            
+
                 list = context.Users.Where(x => x.Id == UserId).First().Messages.Where(y => (y.ReceiverId == SenderId) || (y.SenderId == SenderId)).OrderBy(x => x.SendTime)
         .ThenBy(x => x.SendTime.Date)
         .ThenBy(x => x.SendTime.Year).ToList();
@@ -267,7 +294,7 @@ namespace MessengerApplication.WebUI.Concrete
 
 
 
-      
+
 
 
 
@@ -278,7 +305,7 @@ namespace MessengerApplication.WebUI.Concrete
         {
 
             List<Message> list;
-            List<string> AllUsers=new List<string>();
+            List<string> AllUsers = new List<string>();
             List<ReceiverDataViewModel> listReceivers = new List<ReceiverDataViewModel>();
 
             try
@@ -292,16 +319,16 @@ namespace MessengerApplication.WebUI.Concrete
 
 
 
-            if(list!=null)
+            if (list != null)
             {
 
-               
 
-                List<string> ReceiverList= list.Select(l => l.ReceiverId).ToList();
+
+                List<string> ReceiverList = list.Select(l => l.ReceiverId).ToList();
                 List<string> SenderList = list.Select(l => l.SenderId).ToList();
 
 
-               if(ReceiverList!=null)
+                if (ReceiverList != null)
                 {
 
                     AllUsers.AddRange(ReceiverList);
@@ -314,8 +341,8 @@ namespace MessengerApplication.WebUI.Concrete
                 }
 
 
-             AllUsers=AllUsers.Distinct().ToList();
-                AllUsers.Remove(UserId); 
+                AllUsers = AllUsers.Distinct().ToList();
+                AllUsers.Remove(UserId);
 
 
             }
@@ -327,8 +354,8 @@ namespace MessengerApplication.WebUI.Concrete
 
 
 
-           
-            if (AllUsers.Count()>0&&list!=null)
+
+            if (AllUsers.Count() > 0 && list != null)
             {
 
 
@@ -336,7 +363,7 @@ namespace MessengerApplication.WebUI.Concrete
                 {
 
                     ApplicationUser user = context.Users.Find(item);
-                  
+
                     bool MessageIsRead = true;
 
                     foreach (var message in list)
@@ -344,13 +371,13 @@ namespace MessengerApplication.WebUI.Concrete
 
 
 
-                        if(message.SenderId==item&&message.IsRead==false)
+                        if (message.SenderId == item && message.IsRead == false)
                         {
                             MessageIsRead = false;
                         }
-                        
 
-                        
+
+
                     }
 
                     listReceivers.Add(new ReceiverDataViewModel() { Id = item, IsRead = MessageIsRead, FullName = user.FirstName + " " + user.Surname });
@@ -367,7 +394,7 @@ namespace MessengerApplication.WebUI.Concrete
 
             }
 
-           
+
             return listReceivers;
 
 
@@ -375,7 +402,7 @@ namespace MessengerApplication.WebUI.Concrete
 
 
 
-      
+
 
 
 
@@ -525,12 +552,12 @@ namespace MessengerApplication.WebUI.Concrete
 
                 context.SaveChanges();
 
-               
+
 
                 return true;
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return false;
             }

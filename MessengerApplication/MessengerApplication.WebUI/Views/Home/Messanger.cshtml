@@ -31,8 +31,9 @@
          </div>
         <div class= "row3 col-lg-9 col-md-9 col-sm-10">
             <h3>Messages</h3>
+           <div id="MessagesNumber"> @Html.Action("CheckNumberOfNewMessages","Home")</div>
 
-        
+
         </div>
     </div>
     <div class="row" >
@@ -52,10 +53,102 @@
 
 
 @section Scripts
-{
+               {
 
 <script src="~/Scripts/jquery.signalR-2.4.0.min.js"></script>
 <script src="/signalr/hubs"></script>
+
+
+
+
+<script type="text/javascript">
+
+
+        var MessageHub = $.connection.messagesHub;
+
+
+      
+
+        $.connection.hub.start().done(function () {
+           
+        });
+
+
+        MessageHub.client.refreshMessages = function (Number) {
+
+
+
+            
+
+
+
+               $(document).ready(function () {
+
+
+                
+
+                   $.ajax({
+                       url: '@Url.Action("CheckNumberOfNewMessages", "Home")',
+
+
+                     
+                       success: function (data) {
+
+
+                           $('#MessagesNumber').html(data);
+                       },
+                       error: function (data) {
+                           alert('Update Messages Error');
+                       }
+                   });
+
+
+
+
+
+
+               });
+
+
+
+
+
+
+
+        };
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -77,12 +170,12 @@
 
 
                 $.ajax({
-                    url: '@Url.Action("DeleteMessage", "Home")',
+                           url: '@Url.Action("DeleteMessage", "Home")',
 
 
                 data: {
 
-                    MessageId:$(this).find('.DeleteMessageDiv').val(),
+                               MessageId:$(this).find('.DeleteMessageDiv').val(),
                     SenderId:  $(this).find('.SenderMessageDiv').val(),
                 ReceiverId:  $(this).find('.ReceiverMessageDiv').val(),
 
@@ -92,19 +185,13 @@
 
                     $('#GetMessagesDiv').html(data);
 
-                },
+                           },
                 error: function (data) {
-                    alert('Error  DeleteMessage');
-                    alert(data);
-                }
-            });
-          return false;
-
-
-
-
-
-           
+                               alert('Error  DeleteMessage');
+                               alert(data);
+                           }
+                       });
+                       return false;
 
 
 
@@ -117,8 +204,14 @@
 
 
 
-    });
-    });
+
+
+
+
+
+
+                   });
+               });
 
 </script>
 
@@ -162,23 +255,23 @@
   
 
                 $.ajax({
-                url: '@Url.Action("GetMessages", "Home")',
+                           url: '@Url.Action("GetMessages", "Home")',
 
 
                 data: {
-                    Id: $(this).find('.ButtonWithId').val(),
+                               Id: $(this).find('.ButtonWithId').val(),
 
                 },
                 success: function (data) {
 
                     $('#GetMessagesDiv').html(data);
 
-                },
+                           },
                 error: function (data) {
-                    alert( 'Error  SendMessage');
-                }
-            });
-          return false;
+                               alert( 'Error  SendMessage');
+                           }
+                       });
+                       return false;
 
 
 
@@ -186,8 +279,8 @@
 
 
 
-           });
-    });
+                   });
+               });
 </script>
 
 
@@ -209,30 +302,30 @@
           
            $('#GetMessagesDiv').on('submit', '.SendForm', function () {
 
-             
-                 
-                   
-               var messageData = {
+
+
+
+                       var messageData = {
                    MessageData: $('#MessageDataDiv').val(), ReceiverId: $('#ReceiverIdDiv').val()
                };
-           
-               console.log('messageData: ', messageData);
+
+                   console.log('messageData: ', messageData);
 
                 $.ajax({
-                url: '@Url.Action("SendMessage", "Home")',
+                       url: '@Url.Action("SendMessage", "Home")',
 
 
                 data: messageData,
                 success: function (data) {
                   
                     $('#GetMessagesDiv').html(data);
-                   
-                },
+
+                       },
                 error: function (data) {
-                    alert( 'Error  SendMessage');
-                }
-            });
-          return false;
+                           alert( 'Error  SendMessage');
+                       }
+                   });
+                   return false;
 
 
 
@@ -240,7 +333,7 @@
 
 
 
-           });
+               });
     });
 </script>
   
