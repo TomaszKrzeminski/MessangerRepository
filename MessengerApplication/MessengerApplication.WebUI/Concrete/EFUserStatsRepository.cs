@@ -529,10 +529,22 @@ namespace MessengerApplication.WebUI.Concrete
 
         public List<ApplicationUser> GetUsers(string Id, int HowMany = 20)
         {
+        
+        List<ApplicationUser> list=new List<ApplicationUser>();
+        
+        try
+        {
             ApplicationUser user = context.Users.Where(u => u.Id == Id).First();
-            List<ApplicationUser> list = context.Users.Take(HowMany).ToList();
+            list = context.Users.Take(HowMany).ToList();
 
             list = list.Except(list.Where(x => x.Id == user.Id)).ToList();
+        
+        }
+        catch(Exception ex)
+        {
+        
+        }
+            
 
 
             return list;
